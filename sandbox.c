@@ -1,5 +1,5 @@
 /*
-The function for sandbox.c
+Define of functions in sandbox.h
 */
 
 #include "sandbox.h"
@@ -10,7 +10,7 @@ void create_sandbox(sandbox_t *cfg) {
 	container_stack += cfg->stack_size; /* reverse memory */
 
 	int container_pid = clone(cfg->function, container_stack, 
-		SIGCHLD, cfg->func_args);
+		SIGCHLD | CLONE_NEWUTS, cfg->func_args);
 	
 	waitpid(container_pid, NULL, 0); /* wait for child to stop */
 	
