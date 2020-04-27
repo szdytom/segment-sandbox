@@ -9,8 +9,9 @@ void create_sandbox(sandbox_t *cfg) {
 	char *container_stack = (char *)malloc(cfg->stack_size);
 	container_stack += cfg->stack_size; /* reverse memory */
 
-	int container_pid = clone(cfg->function, container_stack, 
-		SIGCHLD | CLONE_NEWUTS | CLONE_NEWIPC, cfg->func_args);
+	int container_pid = clone(cfg->function, container_stack
+		, SIGCHLD | CLONE_NEWUTS | CLONE_NEWIPC | CLONE_NEWPID
+		, cfg->func_args);
 	
 	waitpid(container_pid, NULL, 0); /* wait for child to stop */
 	

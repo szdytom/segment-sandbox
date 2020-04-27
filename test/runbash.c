@@ -6,7 +6,7 @@ char* container_args[] = {
 };
 
 int func(void *args) {
-	printf("Inside countainer!\n");
+	printf("Inside countainer [%05d]!\n", getpid());
 	sethostname("container", 10);
 
 	char **xargs = (char**)args;
