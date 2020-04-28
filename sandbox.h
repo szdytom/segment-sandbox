@@ -29,6 +29,6 @@ typedef struct {
 	void *func_args; /* fnuction's args */
 } sandbox_t;
 
-void create_sandbox(sandbox_t *cfg);
+int create_sandbox(sandbox_t *cfg);
 
 #endif /* SANDBOX_H */

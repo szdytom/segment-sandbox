@@ -10,9 +10,9 @@ Tools for sandbox
 
 /* Log part starts here */
 
-void log_error(char *funcname, char *format, ...);
-void log_warning(char *funcname, char *format, ...);
-void log_message(char *funcname, char *format, ...);
+void log_error(const char *funcname, const char *format, ...);
+void log_warning(const char *funcname, const char *format, ...);
+void log_message(const char *funcname, const char *format, ...);
 
 /* Log part ends here */
 
