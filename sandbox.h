@@ -1,7 +1,8 @@
 /*
 The main header file of segment-sandbox.
 */
-
+#ifndef SANDBOX_H
+#define SANDBOX_H
 
 #define _GNU_SOURCE
 #include <sys/types.h>
@@ -29,3 +30,5 @@ typedef struct {
 } sandbox_t;
 
 void create_sandbox(sandbox_t *cfg);
+
+#endif /* SANDBOX_H */
