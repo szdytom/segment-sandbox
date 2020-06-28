@@ -5,8 +5,8 @@ Tools for sandbox
 #ifndef TOOLS_H
 #define TOOLS_H
 
-#include <stdio.h>
 #include <stdarg.h>
+#include <stdio.h>
 
 /* Log part starts here */
 
