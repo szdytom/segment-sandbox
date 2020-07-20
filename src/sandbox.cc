@@ -2,14 +2,13 @@
 Define of functions in sandbox.h
 */
 
-#include "../include/sandbox.h"
+#include "../include/sandbox.hpp"
 
 int create_sandbox(sandbox_t *cfg) {
     /* create stack space for child to use */
     char *container_stack = (char *)malloc(cfg->stack_size);
     if (container_stack == NULL) {
         /* malloc failed */
-        log_error(__FUNCTION__, "malloc container stack failed.");
         return -1;
     }
     container_stack += cfg->stack_size; /* reverse memory */
@@ -19,7 +18,6 @@ int create_sandbox(sandbox_t *cfg) {
 
     if (container_pid == -1) {
         /* clone failed */
-        log_error(__FUNCTION__, "clone new process failed.");
         return -1;
     }
 

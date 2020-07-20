@@ -1,6 +1,7 @@
 /*
-The main header file of segment-sandbox.
-*/
+ * The main header file of segment-sandbox.
+ */
+
 #ifndef SANDBOX_H
 #define SANDBOX_H
 
@@ -13,10 +14,9 @@ The main header file of segment-sandbox.
 #include <signal.h>
 #include <unistd.h>
 
-#include <malloc.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
 
 typedef int (*container_func)(void *arg);
 
