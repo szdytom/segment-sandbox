@@ -18,17 +18,23 @@
 #include <cstdlib>
 #include <cstring>
 
+#include <exception>
+#include <memory>
+
+namespace ssandbox {
+
 typedef int (*container_func)(void *arg);
 
-typedef struct {
-    char *work_dir;   /* mount namespace to here */
-    char *rootfs_dir; /* mount namespace from here */
-
+struct sandbox_t {
+    char *work_dir;          /* mount namespace to here */
+    char *rootfs_dir;        /* mount namespace from here */
     int stack_size;          /* stack size of new program, in bytes */
     container_func function; /* function to run inside sandbox */
     void *func_args;         /* fnuction's args */
-} sandbox_t;
+};
 
-int create_sandbox(sandbox_t *cfg);
+void create_sandbox(std::shared_ptr<sandbox_t> cfg);
+
+}
 
 #endif /* SANDBOX_H */
