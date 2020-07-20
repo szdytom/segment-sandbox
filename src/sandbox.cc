@@ -1,6 +1,13 @@
-/*
-Define of functions in sandbox.h
-*/
+/**
+ * sandbox.cc
+ * Define of functions in sandbox.h
+ *
+ * public functions:
+ * ssandbox::create_sandbox(std::shared_ptr<ssandbox::sandbox_t>)
+ *
+ * private functions:
+ * entry_handle(void *cfg_ptr);
+ */
 
 #include "../include/sandbox.h"
 
@@ -12,6 +19,7 @@ Define of functions in sandbox.h
  * Not publicfor user to use.
  * Config settings inside container.
  * 1. Set Host Name
+ * 2. Mount Filesystem
  */
 int entry_handle(void *cfg_ptr) {
 	std::shared_ptr<ssandbox::sandbox_t> cfg = *((std::shared_ptr<ssandbox::sandbox_t>*)cfg_ptr);
