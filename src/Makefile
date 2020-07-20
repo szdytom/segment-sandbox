@@ -4,7 +4,7 @@
 CC := gcc
 
 # compile flags for C
-FLAGS := -Wall -Wextra -O2
+FLAGS := -Wall -Wextra -O2 -std=c++11
 
 OBJECT_LIST = sandbox.o namespace.o
 
