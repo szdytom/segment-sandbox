@@ -1,7 +1,7 @@
 # Makefile
 
 # compilers for C
-CC := gcc
+CC := g++
 
 # compile flags for C
 FLAGS := -Wall -Wextra -O2 -std=c++11

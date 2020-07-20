@@ -35,6 +35,6 @@ struct sandbox_t {
 
 void create_sandbox(std::shared_ptr<sandbox_t> cfg);
 
-}
+} // namespace ssandbox
 
 #endif /* SANDBOX_H */
