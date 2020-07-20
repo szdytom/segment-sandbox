@@ -3,7 +3,6 @@ Define of functions in sandbox.h
 */
 
 #include "../include/sandbox.h"
-#include "../include/tools.h"
 
 int create_sandbox(sandbox_t *cfg) {
     /* create stack space for child to use */

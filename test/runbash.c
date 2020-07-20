@@ -1,4 +1,4 @@
-#include "../sandbox.h"
+#include "../include/sandbox.h"
 
 char* container_args[] = {
 	"/bin/bash",
