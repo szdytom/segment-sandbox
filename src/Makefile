@@ -6,12 +6,12 @@ CC := g++
 # compile flags for C
 FLAGS := -Wall -Wextra -O2 -std=c++11
 
-OBJECT_LIST = sandbox.o namespace.o
+OBJECT_LIST = sandbox.o
 
 static_lib : $(OBJECT_LIST)
 	ar rcs libssandbox.a $(OBJECT_LIST)
 
-sandbox_c : sandbox.c
+sandbox_cc : sandbox.cc
 	$(CC) $(FLAGS) -c sandbox.cc -o sandbox.o
 
 .PHONY clean:
