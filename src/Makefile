@@ -4,7 +4,7 @@
 CC := g++
 
 # compile flags for C
-FLAGS := -Wall -Wextra -O2 -std=c++11
+FLAGS := -Wall -Wextra -O2 -std=c++17
 
 OBJECT_LIST = sandbox.o
 
