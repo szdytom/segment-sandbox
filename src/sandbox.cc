@@ -23,7 +23,10 @@
 int ssandbox::entry_handle(void *cfg_ptr) {
 	std::shared_ptr<ssandbox::sandbox_t> cfg = *((std::shared_ptr<ssandbox::sandbox_t>*)cfg_ptr);
 	sethostname(cfg->hostname.c_str(), cfg->hostname.size());
-	return cfg->function(cfg->func_args);
+    ssandbox::mount_containerfs(cfg->mnt_config);
+	int res = cfg->function(cfg->func_args);
+    ssandbox::umount_containerfs(cfg->mnt_config);
+    return res;
 }
 
 /**
