@@ -4,7 +4,7 @@ using namespace std;
 using namespace ssandbox;
 
 const char* container_args[] = {
-	"/bin/bash",
+	"/bin/sh",
 	NULL
 };
 
@@ -25,7 +25,10 @@ int main() {
 	cfg->stack_size = 1024 * 1024; // 1MB
 	cfg->hostname = "container";
 
-    cfg->mnt_config.point = "/";
+    cfg->mnt_config.point = "/rootfs/merge";
+    cfg->mnt_config.lower_dir = "/rootfs/lower";
+    cfg->mnt_config.upper_dir = "/rootfs/upper";
+    cfg->mnt_config.workspace = "/rootfs/work";
     cfg->mnt_config.mount_proc = true;
     cfg->mnt_config.mount_tmp = true;
 	
