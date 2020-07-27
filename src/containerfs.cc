@@ -20,14 +20,21 @@
  * And it will switch point '/' there
 */
 void ssandbox::mount_containerfs(ssandbox::MountInfo cfg) {
-    char *options = new char[4096];
-    sprintf(options, "lowerdir=%s,upperdir=%s,workdir=%s", 
-            cfg.lower_dir.c_str(), cfg.upper_dir.c_str(), cfg.workspace.c_str());
+    std::string options;
+    options = "lowerdir=" + cfg.lower_dir.native() + ",upperdir=" 
+            + cfg.upper_dir.native() + ",workdir=" + cfg.workspace.native();
 
-    mount("", cfg.point.c_str(), "overlay", 0, options);
-    delete[] options;
+    mount("overlay", cfg.point.c_str(), "overlay", 0, options.c_str());
 
+    if (cfg.mount_proc) { 
+        if (mount("proc", (cfg.point / "proc").c_str(), "proc", 0, nullptr)) 
+            throw std::runtime_error("[Segment Sandbox - mount_containerfs()] Cannot mount fs of proc.");
+    }
 
+    if (cfg.mount_tmp) { 
+        if (mount("tmpfs", (cfg.point / "tmp").c_str(), "tmpfs", 0, nullptr)) 
+            throw std::runtime_error("[Segment Sandbox - mount_containerfs()] Cannot mount fs of tmp.");
+    }
 }
 
 /**
@@ -43,9 +50,9 @@ void ssandbox::umount_containerfs(ssandbox::MountInfo cfg) {
     if (umount2(cfg.point.c_str(), MNT_FORCE))
         throw std::runtime_error("[Segment Sandbox - umount_containerfs()] Cannot unmount fs of overlay.");
 
-    if (umount2("/tmp", MNT_FORCE))
+    if (cfg.mount_tmp && umount2("/tmp", MNT_FORCE))
         throw std::runtime_error("[Segment Sandbox - umount_containerfs()] Cannot unmount fs of tmp");
     
-    if (umount2("/proc", MNT_FORCE))
+    if (cfg.mount_proc && umount2("/proc", MNT_FORCE))
         throw std::runtime_error("[Segment Sandbox - umount_containerfs()] Cannot unmount fs of proc");
 }
