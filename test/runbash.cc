@@ -23,6 +23,8 @@ int main() {
 	cfg->func_args = container_args;
 	cfg->stack_size = 1024 * 1024; // 1MB
 	cfg->hostname = "container";
+    cfg->mnt_config.mount_proc = true;
+    cfg->mnt_config.mount_tmp = true;
 	
 	printf("Outside\n");
 	create_sandbox(cfg);
