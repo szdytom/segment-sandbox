@@ -10,6 +10,8 @@
 #include <exception>
 #include <string>
 
+#include <sys/stat.h>
+#include <sys/types.h>
 #include <unistd.h>
 #include "../include/containerfs.h"
 
@@ -26,19 +28,25 @@ void ssandbox::mount_containerfs(ssandbox::MountInfo cfg) {
     options = "lowerdir=" + cfg.lower_dir.native() + ",upperdir=" 
             + cfg.upper_dir.native() + ",workdir=" + cfg.workspace.native();
 
-    mount("overlay", cfg.point.c_str(), "overlay", 0, options.c_str());
+    if (mount("overlay", cfg.point.c_str(), "overlay", 0, options.c_str()))
+        throw std::runtime_error("[Segment Sandbox - mount_containerfs()] Cannot mount overlayfs");
 
     /* Now main fs are correctly mounted, let chroot now.*/
-    if (chdir(cfg.point.c_str()) != 0 || chroot("./") != 0) 
+    if (chdir(cfg.point.c_str())) 
+        throw std::runtime_error("[Segment Sandbox - mount_containerfs()] Cannot change working point.");
+    
+    if (chroot("./"))
         throw std::runtime_error("[Segment Sandbox - mount_containerfs()] Cannot change root mount point('/').");
 
-    if (cfg.mount_proc) { 
-        if (mount("proc", (cfg.point / "proc").c_str(), "proc", 0, nullptr)) 
+    if (cfg.mount_proc) {
+        mkdir("/proc", 0);
+        if (mount("proc", "/proc", "proc", 0, nullptr)) 
             throw std::runtime_error("[Segment Sandbox - mount_containerfs()] Cannot mount fs of proc.");
     }
 
     if (cfg.mount_tmp) { 
-        if (mount("tmpfs", (cfg.point / "tmp").c_str(), "tmpfs", 0, nullptr)) 
+        mkdir("/tmp", 0);
+        if (mount("tmpfs", "/tmp", "tmpfs", 0, nullptr)) 
             throw std::runtime_error("[Segment Sandbox - mount_containerfs()] Cannot mount fs of tmp.");
     }
 }

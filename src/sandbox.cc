@@ -26,7 +26,7 @@ int entry_handle(void *cfg_ptr) {
 
     ssandbox::mount_containerfs(cfg->mnt_config);
 	int res = cfg->function(cfg->func_args);
-    ssandbox::umount_containerfs(cfg->mnt_config);
+    // ssandbox::umount_containerfs(cfg->mnt_config);
 
     return res;
 }
