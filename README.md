@@ -6,4 +6,4 @@ The sandbox for segment-judger using linux namespace, rlimit and seccomp
 查看wiki获得更多信息。
 
 # Install Requirements
-You need g++-9 or later, witch has full C++17 support.
+You need g++-9 or later (clang++10.0 or later), witch has full C++17 support.
