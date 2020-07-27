@@ -9,6 +9,8 @@
 
 #include <exception>
 #include <string>
+
+#include <unistd.h>
 #include "../include/containerfs.h"
 
 /**
@@ -35,6 +37,10 @@ void ssandbox::mount_containerfs(ssandbox::MountInfo cfg) {
         if (mount("tmpfs", (cfg.point / "tmp").c_str(), "tmpfs", 0, nullptr)) 
             throw std::runtime_error("[Segment Sandbox - mount_containerfs()] Cannot mount fs of tmp.");
     }
+
+    /* Now all fs are correctly mounted, let chroot now.*/
+    if (chdir("./rootfs") != 0 || chroot("./") != 0) 
+        throw std::runtime_error("[Segment Sandbox - mount_containerfs()] Cannot change root mount point('/').")
 }
 
 /**
