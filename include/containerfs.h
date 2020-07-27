@@ -14,8 +14,8 @@
 namespace ssandbox {
 
 struct fsconfig_t {
-	std::filesystem::path root;
-	std::filesystem::path work;
+    std::filesystem::path root;
+    std::filesystem::path work;
 };
 
 } /* namespace ssandbox */
