@@ -28,7 +28,10 @@ struct MountInfo {
     /* An extra point to mount, will be mounted into /mnt inside container*/
     std::filesystem::path extra_point;
 
+    /* If enabled, it will mount /proc */
     bool mount_proc;
+
+    /* If enabled, it will mount /tmp */
     bool mount_tmp;
 };
 
