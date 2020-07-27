@@ -13,9 +13,12 @@
 
 namespace ssandbox {
 
-struct fsconfig_t {
-    std::filesystem::path root;
-    std::filesystem::path work;
+class FileSystemConfig {
+    public:
+    FileSystemConfig() {}
+    virtual ~FileSystemConfig() = 0;
+    virtual void mount() = 0;
+    virtual void chroot() = 0;
 };
 
 } /* namespace ssandbox */
