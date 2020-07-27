@@ -20,7 +20,7 @@
  * 1. Set Host Name
  * 2. Mount Filesystem
  */
-int ssandbox::entry_handle(void *cfg_ptr) {
+int entry_handle(void *cfg_ptr) {
 	std::shared_ptr<ssandbox::sandbox_t> cfg = *((std::shared_ptr<ssandbox::sandbox_t>*)cfg_ptr);
 	sethostname(cfg->hostname.c_str(), cfg->hostname.size());
     ssandbox::mount_containerfs(cfg->mnt_config);

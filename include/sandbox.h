@@ -50,7 +50,6 @@ struct sandbox_t {
 };
 
 void create_sandbox(std::shared_ptr<sandbox_t> cfg);
-int entry_handle(void *cfg_ptr);
 
 } // namespace ssandbox
 
