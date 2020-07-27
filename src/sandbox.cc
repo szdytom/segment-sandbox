@@ -13,15 +13,14 @@
 
 /**
  * @brief Configure Settings inside container
- * @param cfg sandbox config
+ * @param cfg_ptr sandbox config
  * @return int the cfg->function return
  * 
- * Not publicfor user to use.
  * Config settings inside container.
  * 1. Set Host Name
  * 2. Mount Filesystem
  */
-int entry_handle(void *cfg_ptr) {
+int ssandbox::entry_handle(void *cfg_ptr) {
 	std::shared_ptr<ssandbox::sandbox_t> cfg = *((std::shared_ptr<ssandbox::sandbox_t>*)cfg_ptr);
 	sethostname(cfg->hostname.c_str(), cfg->hostname.size());
 	return cfg->function(cfg->func_args);

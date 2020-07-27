@@ -19,9 +19,9 @@
 #define _GNU_SOURCE
 #endif /* _GNU_SOURCE */
 
-#include <sys/wait.h>
-#include <sys/types.h>
 #include <sys/resource.h>
+#include <sys/types.h>
+#include <sys/wait.h>
 
 #include <sched.h>
 #include <signal.h>
@@ -31,9 +31,11 @@
 #include <cstdlib>
 #include <cstring>
 
-#include <string>
-#include <memory>
 #include <exception>
+#include <memory>
+#include <string>
+
+#include "containerfs.h"
 
 namespace ssandbox {
 
@@ -43,10 +45,12 @@ struct sandbox_t {
     int stack_size;          /* stack size of new program, in bytes */
     container_func function; /* function to run inside sandbox */
     void *func_args;         /* fnuction's args */
-	std::string hostname;    /* hostname inside container */
+    std::string hostname;    /* hostname inside container */
+    MountInfo mnt_config;    /* Mount Info  */
 };
 
 void create_sandbox(std::shared_ptr<sandbox_t> cfg);
+int entry_handle(void *cfg_ptr);
 
 } // namespace ssandbox
 
