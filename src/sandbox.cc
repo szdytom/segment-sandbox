@@ -23,9 +23,11 @@
 int entry_handle(void *cfg_ptr) {
 	std::shared_ptr<ssandbox::sandbox_t> cfg = *((std::shared_ptr<ssandbox::sandbox_t>*)cfg_ptr);
 	sethostname(cfg->hostname.c_str(), cfg->hostname.size());
+
     ssandbox::mount_containerfs(cfg->mnt_config);
 	int res = cfg->function(cfg->func_args);
     ssandbox::umount_containerfs(cfg->mnt_config);
+
     return res;
 }
 
@@ -44,7 +46,7 @@ void ssandbox::create_sandbox(std::shared_ptr<ssandbox::sandbox_t> cfg) {
 
     int container_pid = clone((ssandbox::container_func)entry_handle, 
 							  container_stack_ptr + cfg->stack_size, /* reverse memory */
-                              SIGCHLD | CLONE_NEWUTS | CLONE_NEWIPC | CLONE_NEWPID, 
+                              SIGCHLD | CLONE_NEWUTS | CLONE_NEWIPC | CLONE_NEWPID | CLONE_NEWNS, 
 							  (void*)&(cfg));
 
     if (container_pid == -1)
