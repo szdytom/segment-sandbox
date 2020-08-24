@@ -4,7 +4,7 @@ using namespace std;
 using namespace ssandbox;
 
 const char* container_args[] = {
-	"/bin/sh",
+	"/bin/bash",
 	NULL
 };
 
@@ -14,6 +14,7 @@ int func(void *args) {
 	char **xargs = (char**)args;
 	printf("+%s\n", xargs[0]);
 	execv(xargs[0], xargs);
+    printf("Err [%d]", errno);
 	printf("exiting\n");
     return 0;
 }
