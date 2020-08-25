@@ -9,4 +9,6 @@ The sandbox for segment-judger using linux namespace, rlimit and seccomp
 查看wiki获得更多信息。
 
 # Install Requirements
-You need g++-9 or later (clang++10.0 or later), witch has full C++17 support.
+You need g++-9 or later (clang++10.0 or later), witch has full C++17 support (Ubuntu 20.04 LTS is a good choice).
+
+You need to have **overlayFS** enabled, this means you may need to run `modprobe overlay`. 

@@ -1,5 +1,6 @@
 #include "../include/sandbox.h"
 #include <cerrno>
+#include <cstring>
 using namespace std;
 using namespace ssandbox;
 
@@ -14,7 +15,7 @@ int func(void *args) {
 	char **xargs = (char**)args;
 	printf("+%s\n", xargs[0]);
 	execv(xargs[0], xargs);
-    printf("Err [%d]", errno);
+    printf("Err [%d]: %s\n", errno, strerror(errno));
 	printf("exiting\n");
     return 0;
 }
@@ -26,10 +27,10 @@ int main() {
 	cfg->stack_size = 1024 * 1024; // 1MB
 	cfg->hostname = "container";
 
-    cfg->mnt_config.point = "/rootfs/merge";
-    cfg->mnt_config.lower_dir = "/rootfs/lower";
-    cfg->mnt_config.upper_dir = "/rootfs/upper";
-    cfg->mnt_config.workspace = "/rootfs/work";
+    cfg->mnt_config.point = "/mnt/sandbox/merge";
+    cfg->mnt_config.lower_dir = "/mnt/image";
+    cfg->mnt_config.upper_dir = "/mnt/sandbox/upper";
+    cfg->mnt_config.workspace = "/mnt/sandbox/work";
     cfg->mnt_config.mount_proc = true;
     cfg->mnt_config.mount_tmp = true;
 	
