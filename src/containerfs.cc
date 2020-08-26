@@ -9,11 +9,13 @@
 
 #include <exception>
 #include <string>
-
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <unistd.h>
 #include "../include/containerfs.h"
+#include <errno.h>
+
+#include <fmt/core.h>
 
 /**
  * @brief Mount filesystem into the continaer
@@ -29,44 +31,28 @@ void ssandbox::mount_containerfs(ssandbox::MountInfo cfg) {
             + cfg.upper_dir.native() + ",workdir=" + cfg.workspace.native();
 
     if (mount("overlay", cfg.point.c_str(), "overlay", 0, options.c_str()))
-        throw std::runtime_error("[Segment Sandbox - mount_containerfs()] Cannot mount overlayfs");
+        throw std::runtime_error(fmt::format("[Segment Sandbox - {}] Cannot mount overlayfs: [{}] {}", __FUNCTION__, errno, strerror(errno)));
 
-    /* Now main fs are correctly mounted, let's chroot now.*/
+    /* Now main fs are correctly mounted, let's chroot now. */
     if (chdir(cfg.point.c_str())) 
-        throw std::runtime_error("[Segment Sandbox - mount_containerfs()] Cannot change working point.");
+        throw std::runtime_error(fmt::format("[Segment Sandbox - {}] Cannot change working point: [{}] {}", __FUNCTION__, errno, strerror));
     
     if (chroot("./"))
-        throw std::runtime_error("[Segment Sandbox - mount_containerfs()] Cannot change root mount point('/').");
+        throw std::runtime_error(fmt::format("[Segment Sandbox - {}] Cannot change root mount point: [{}] {}", __FUNCTION__, errno, strerror(errno)));
 
     if (cfg.mount_proc) {
-        mkdir("/proc", 0);
+        if (mkdir("/proc", S_IRWXU | S_IRWXG | S_IRWXO))
+            throw std::runtime_error(fmt::format("[Segment Sandbox - {}] Cannot make /proc for mount: [{}] {}", __FUNCTION__, errno, strerror(errno)));
+
         if (mount("proc", "/proc", "proc", 0, nullptr)) 
-            throw std::runtime_error("[Segment Sandbox - mount_containerfs()] Cannot mount fs of proc.");
+            throw std::runtime_error(fmt::format("[Segment Sandbox - {}] Cannot mount fs of proc: [{}] {}", __FUNCTION__, errno, strerror(errno)));
     }
 
     if (cfg.mount_tmp) { 
-        mkdir("/tmp", 0);
+        if (mkdir("/tmp", S_IRWXU | S_IRWXG | S_IRWXO))
+            throw std::runtime_error(fmt::format("[Segment Sandbox - {}] Cannot make /proc for mount: [{}] {}", __FUNCTION__, errno, strerror(errno)));
+
         if (mount("tmpfs", "/tmp", "tmpfs", 0, nullptr)) 
-            throw std::runtime_error("[Segment Sandbox - mount_containerfs()] Cannot mount fs of tmp.");
+            throw std::runtime_error(fmt::format("[Segment Sandbox - {}] Cannot mount fs of tmp: [{}] {}", __FUNCTION__, errno, strerror(errno)));
     }
-}
-
-/**
- * @brief Unmount filesystem in the continaer
- * @param cfg mount info & config
- * @throw std::runtime_error, in which case umount failed
- * 
- * Unmount filesystem inside container
- * It unmount overlayfs and other VFS inside container
- * And it will switch point '/' back
-*/
-void ssandbox::umount_containerfs(ssandbox::MountInfo cfg) {
-    if (umount2(cfg.point.c_str(), MNT_FORCE))
-        throw std::runtime_error("[Segment Sandbox - umount_containerfs()] Cannot unmount fs of overlay.");
-
-    if (cfg.mount_tmp && umount2("/tmp", MNT_FORCE))
-        throw std::runtime_error("[Segment Sandbox - umount_containerfs()] Cannot unmount fs of tmp");
-    
-    if (cfg.mount_proc && umount2("/proc", MNT_FORCE))
-        throw std::runtime_error("[Segment Sandbox - umount_containerfs()] Cannot unmount fs of proc");
 }

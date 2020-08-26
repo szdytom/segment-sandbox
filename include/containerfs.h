@@ -36,7 +36,6 @@ struct MountInfo {
 };
 
 void mount_containerfs(MountInfo cfg);
-void umount_containerfs(MountInfo cfg);
 
 } /* namespace ssandbox */
 
