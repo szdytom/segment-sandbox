@@ -33,3 +33,7 @@
 
 # VS code
 .vscode/
+
+# tmp
+tmp/
+temp/
