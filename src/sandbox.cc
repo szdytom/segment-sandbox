@@ -46,8 +46,8 @@ void ssandbox::create_sandbox(std::shared_ptr<ssandbox::sandbox_t> cfg) {
 
     int container_pid = clone((ssandbox::container_func)entry_handle, 
 							  container_stack_ptr + cfg->stack_size, /* reverse memory */
-                              SIGCHLD | CLONE_NEWUTS | CLONE_NEWIPC | CLONE_NEWPID | CLONE_NEWNS, 
-							  (void*)&(cfg));
+                              SIGCHLD | CLONE_NEWUTS | CLONE_NEWIPC | CLONE_NEWPID | CLONE_NEWUSER | CLONE_NEWNS, 
+							  (void*)(&cfg));
 
     if (container_pid == -1)
         /* clone process failed */

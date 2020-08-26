@@ -31,7 +31,7 @@ void ssandbox::mount_containerfs(ssandbox::MountInfo cfg) {
     if (mount("overlay", cfg.point.c_str(), "overlay", 0, options.c_str()))
         throw std::runtime_error("[Segment Sandbox - mount_containerfs()] Cannot mount overlayfs");
 
-    /* Now main fs are correctly mounted, let chroot now.*/
+    /* Now main fs are correctly mounted, let's chroot now.*/
     if (chdir(cfg.point.c_str())) 
         throw std::runtime_error("[Segment Sandbox - mount_containerfs()] Cannot change working point.");
     
