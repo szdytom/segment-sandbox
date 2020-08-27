@@ -9,8 +9,8 @@
  * entry_handle(void *cfg_ptr);
  */
 
-#include "../include/sandbox.h"
-#include "../include/userns.h"
+#include "ssandbox/sandbox.h"
+#include "ssandbox/userns.h"
 
 /**
  * @brief Configure Settings inside container

@@ -7,7 +7,7 @@
  * void ssandbox::umount_containerfs(std::shared_ptr<ssandbox::MountInfo>)
  */
 
-#include "../include/containerfs.h"
+#include "ssandbox/containerfs.h"
 #include <exception>
 #include <string>
 #include <errno.h>

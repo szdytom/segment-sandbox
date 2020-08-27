@@ -36,7 +36,7 @@
 #include <exception>
 #include <string>
 
-#include "containerfs.h"
+#include "ssandbox/containerfs.h"
 
 namespace ssandbox {
 

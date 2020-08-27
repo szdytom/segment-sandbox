@@ -37,3 +37,7 @@
 # tmp
 tmp/
 temp/
+
+# CMake
+build/
+dist/
