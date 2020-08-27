@@ -26,9 +26,7 @@
  * And it will switch point '/' there
 */
 void ssandbox::mount_containerfs(ssandbox::MountInfo cfg) {
-    std::string options;
-    options = "lowerdir=" + cfg.lower_dir.native() + ",upperdir="
-              + cfg.upper_dir.native() + ",workdir=" + cfg.workspace.native();
+    std::string options(fmt::format("lowerdir={},upperdir={},workdir={}", cfg.lower_dir.native(), cfg.upper_dir.native(), cfg.workspace.native()));
 
     if (mount("overlay", cfg.point.c_str(), "overlay", 0, options.c_str()))
         throw std::runtime_error(fmt::format("[Segment Sandbox - {}] Cannot mount overlayfs: [{}] {}", __FUNCTION__, errno, strerror(errno)));
