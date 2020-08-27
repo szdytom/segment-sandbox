@@ -27,7 +27,6 @@ int ssandbox::entry_handle(void *cfg_ptr) {
 
     ssandbox::mount_containerfs(cfg->mnt_config);
 	int res = cfg->function(cfg->func_args);
-
     return res;
 }
 
@@ -59,6 +58,9 @@ void ssandbox::create_sandbox(std::shared_ptr<ssandbox::sandbox_t> cfg) {
     user_ns_mgr->setGIDMap(container_pid, 0, getgid(), 1);
 
     waitpid(container_pid, nullptr, 0); /* wait for child to stop */
+
+    /* clear mounted fs */
+    ssandbox::umount_containerfs(cfg->mnt_config);
 
     /* unique_ptr frees memory */
 }
