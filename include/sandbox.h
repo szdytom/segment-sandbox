@@ -1,4 +1,6 @@
-/*
+/**
+ * -*- C++ -*- Part of the Segment Sandbox Project
+ * 
  * sandbox.h
  * The main header file of segment-sandbox.
  *
@@ -32,7 +34,6 @@
 #include <cstring>
 
 #include <exception>
-#include <memory>
 #include <string>
 
 #include "containerfs.h"
@@ -49,7 +50,14 @@ struct sandbox_t {
     MountInfo mnt_config;    /* Mount Info  */
 };
 
+struct sandbox_handle_t {
+    sandbox_t *sandbox;
+    int uid;
+    int gid;  
+};
+
 void create_sandbox(std::shared_ptr<sandbox_t> cfg);
+int entry_handle(void *cfg_ptr);
 
 } // namespace ssandbox
 
