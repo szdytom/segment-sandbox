@@ -12,6 +12,8 @@ SET(SRC_LIST
     ${PROJECT_SOURCE_DIR}/src/sandbox.cc
     ${PROJECT_SOURCE_DIR}/src/containerfs.cc
     ${PROJECT_SOURCE_DIR}/src/userns.cc
+    ${PROJECT_SOURCE_DIR}/src/cgroup/subsys.cc
+    ${PROJECT_SOURCE_DIR}/src/cgroup/unit.cc
 )
 
 SET(HEADER_INCLUDE_DIR include/ssandbox)
@@ -20,6 +22,7 @@ SET(HEADER_LIST
     ${HEADER_INCLUDE_DIR}/containerfs.h 
     ${HEADER_INCLUDE_DIR}/sandbox.h 
     ${HEADER_INCLUDE_DIR}/userns.h 
+    ${HEADER_INCLUDE_DIR}/cgroup.h 
 )
 
 FIND_PACKAGE(PkgConfig)
