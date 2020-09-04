@@ -1,18 +1,4 @@
-/**
- * -*- C++ -*- Part of the Segment Sandbox Project
- * 
- * sandbox.h
- * The main header file of segment-sandbox.
- *
- * struct & classes & types:
- * ssandbox::sandbox_t
- * ssandbox::create_sandbox(std::shared_ptr<ssandbox::sandbox_t>)
- *
- * functions:
- * void create_sandbox(std::shared_ptr<sandbox_t>);
- *
- * See the define of these functions in ../src/sandbox.cc
- */
+// -*- C++ -*- Part of the Segment Sandbox Project
 
 #ifndef SANDBOX_H
 #define SANDBOX_H

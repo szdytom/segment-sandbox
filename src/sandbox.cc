@@ -1,14 +1,3 @@
-/**
- * sandbox.cc
- * Define of functions in sandbox.h
- *
- * public functions:
- * ssandbox::create_sandbox(std::shared_ptr<ssandbox::sandbox_t>)
- *
- * private functions:
- * entry_handle(void *cfg_ptr);
- */
-
 #include "ssandbox/sandbox.h"
 #include "ssandbox/userns.h"
 

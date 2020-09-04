@@ -1,15 +1,4 @@
-/**
- * -*- C++ -*- Part of the Segment Sandbox Project
- * containerfs.h
- *
- * This file is about mount filesystem inside container.
- * type:
- * MountInfo
- * 
- * functions:
- * mount_containerfs(MountInfo cfg)
- * 
- */
+// -*- C++ -*- Part of the Segment Sandbox Project
 
 #ifndef CONTAINERFS_H
 #define CONTAINERFS_H

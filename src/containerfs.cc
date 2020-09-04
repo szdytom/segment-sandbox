@@ -1,12 +1,3 @@
-/**
- * containerfs.cc
- * Define of functions in containerfs.h
- *
- * public functions:
- * void ssandbox::mount_containerfs(std::shared_ptr<ssandbox::MountInfo>)
- * void ssandbox::umount_containerfs(std::shared_ptr<ssandbox::MountInfo>)
- */
-
 #include "ssandbox/containerfs.h"
 #include <exception>
 #include <string>

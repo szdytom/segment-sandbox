@@ -1,10 +1,4 @@
-/**
- * -*- C++ -*- Part of the Segment Sandbox Project
- * cgroup.h
- *
- * This file is about operating cgroup.
- * 
- */
+// -*- C++ -*- Part of the Segment Sandbox Project
 
 #ifndef SSANDBOX_CGROUP_H
 #define SSANDBOX_CGROUP_H

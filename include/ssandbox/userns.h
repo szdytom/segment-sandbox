@@ -1,14 +1,4 @@
-/**
- * -*- C++ -*- Part of the Segment Sandbox Project
- * 
- * unserns.h
- * User namespace supporter of segment-sandbox.
- * 
- * class:
- * UserNamespaceMgr
- * 
- * See the define of these functions in ../src/userns.cc
- */
+// -*- C++ -*- Part of the Segment Sandbox Project
 
 #ifndef SSANDBOX_USERNS_H
 #define SSANDBOX_USERNS_H

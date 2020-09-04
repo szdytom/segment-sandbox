@@ -1,13 +1,3 @@
-/**
- * sandbox.cc
- * Define of functions in userns.h
- *
- * public functions:
- * ssandbox::create_sandbox(std::shared_ptr<ssandbox::sandbox_t>)
- *
- * 
- */
-
 #include "ssandbox/userns.h"
 #include <cstdio>
 #include <errno.h>
