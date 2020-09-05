@@ -31,6 +31,7 @@ void ssandbox::CgroupUnit::write(std::string file, std::string value) {
         throw std::runtime_error(fmt::format("[Segment Sandbox -{}] Cannot open file cgroup '{}': [{}] {}", __FUNCTION__, file_path.native(), errno, strerror(errno)));
 
     fmt::print(f, "{}", value);
+    fclose(f);
 }
 
 std::string ssandbox::CgroupUnit::get(std::string file) {
@@ -57,5 +58,5 @@ std::string ssandbox::CgroupUnit::get(std::string file) {
 }
 
 void ssandbox::CgroupUnit::remove() {
-    std::filesystem::remove_all(this->_unit_path);
+    std::filesystem::remove(this->_unit_path);
 }
