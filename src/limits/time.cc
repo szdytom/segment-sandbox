@@ -15,7 +15,7 @@ void ssandbox::LimitsMgr::_watchTimeLimit() {
     auto start_time_clock = std::chrono::steady_clock::now();
 
     while (true) {
-        std::this_thread::sleep_for(std::chrono::microseconds(wait_time_ms));
+        std::this_thread::sleep_for(std::chrono::milliseconds(wait_time_ms));
         if (!ssandbox::utils::process::checkProcessAlive(this->_pid))
             return;
 
