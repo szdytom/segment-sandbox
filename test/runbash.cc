@@ -25,6 +25,7 @@ int main() {
     cfg->func_args = container_args;
     cfg->stack_size = 1024 * 1024; // 1MB
     cfg->hostname = "container";
+    cfg->uid = "test";
 
     cfg->mnt_config.point = "/mnt/sandbox/merge";
     cfg->mnt_config.lower_dir = "/mnt/image";
@@ -33,8 +34,8 @@ int main() {
     cfg->mnt_config.mount_proc = true;
     cfg->mnt_config.mount_tmp = true;
 
-    cfg->limit_config.cpu = -1;
-    cfg->limit_config.time = 10000; // 10s
+    cfg->limit_config.cpu = 30;
+    cfg->limit_config.time = 100000; // 100s
     cfg->limit_config.memory = -1; // unlimited
 
     printf("Outside\n");
