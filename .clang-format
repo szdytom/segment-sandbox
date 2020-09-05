@@ -60,23 +60,23 @@ ForEachMacros:
   - BOOST_FOREACH
 IncludeBlocks:   Preserve
 IncludeCategories: 
-  - Regex:           '^<(c[a-z]+)>'
-    Priority:        2
-  - Regex:           '^<[a-z/]+\.h>'
-    Priority:        3
-  - Regex:           '^<[a-z]+>'
+  - Regex:           '^<[A-Za-z]+>$'
     Priority:        1
-  - Regex:           '^<[a-z/]+\.[a-z]+>'
+  - Regex:           '^<[A-Za-z/]+>$'
+    Priority:        2
+  - Regex:           '^<(c[A-Za-z]+)>$'
+    Priority:        3
+  - Regex:           '^<[A-Za-z/]+\.h>$'
     Priority:        4
-  - Regex:           '^"[a-z]+\.h"'
+  - Regex:           '^<[A-Za-z/]+\.[a-z]+>$'
     Priority:        5
-  - Regex:           '^"[a-z]+\.[a-z]+"'
+  - Regex:           '^"[A-Za-z]+\.h"$'
     Priority:        6
-  - Regex:           '^"[a-z/]+\.h"'
+  - Regex:           '^"[A-Za-z/]+\.h"$'
     Priority:        7
-  - Regex:           '^"[a-z/]+\.[a-z]+"'
+  - Regex:           '^"[A-Za-z/]+\.[a-z]+"$'
     Priority:        8
-  - Regex:           '.*'
+  - Regex:           '^.*$'
     Priority:        9
 IncludeIsMainRegex: '(Test)?$'
 IndentCaseLabels: true
