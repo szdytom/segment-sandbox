@@ -4,6 +4,7 @@
 #include "ssandbox/limits.h"
 
 void ssandbox::LimitsMgr::release() {
+    this->wait();
     for (ssandbox::CgroupUnit* c : this->_used_cgroup) {
         c->remove();
         delete c;
