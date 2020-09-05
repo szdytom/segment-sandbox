@@ -29,6 +29,6 @@ bool ssandbox::LimitsMgr::_watchTimeLimit() {
 
 std::future<bool>& ssandbox::LimitsMgr::time(unsigned int limit) {
     this->_time_limit = limit;
-    auto surveillant = std::async([this] { return this->_watchTimeLimit(); });
+    static auto surveillant = std::async([this] { return this->_watchTimeLimit(); });
     return surveillant;
 }

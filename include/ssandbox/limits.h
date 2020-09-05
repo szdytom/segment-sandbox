@@ -7,6 +7,7 @@
 #include <string>
 #include <vector>
 #include <cstdlib>
+#include "ssandbox/cgroup.h"
 
 namespace ssandbox {
 

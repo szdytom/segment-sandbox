@@ -14,7 +14,7 @@ SET(SRC_LIST
     ${PROJECT_SOURCE_DIR}/src/userns.cc
     ${PROJECT_SOURCE_DIR}/src/cgroup/subsys.cc
     ${PROJECT_SOURCE_DIR}/src/cgroup/unit.cc
-    ${PROJECT_SOURCE_DIR}/src/limits/limts.cc
+    ${PROJECT_SOURCE_DIR}/src/limits/limits.cc
     ${PROJECT_SOURCE_DIR}/src/limits/memory.cc
     ${PROJECT_SOURCE_DIR}/src/limits/cpu.cc
     ${PROJECT_SOURCE_DIR}/src/limits/release.cc
@@ -29,8 +29,8 @@ SET(HEADER_LIST
     ${HEADER_INCLUDE_DIR}/sandbox.h 
     ${HEADER_INCLUDE_DIR}/userns.h 
     ${HEADER_INCLUDE_DIR}/cgroup.h 
-    ${HEADER_INCLUDE_DIR}/limit.h  
-    ${HEADER_INCLUDE_DIR}/process/utils.h 
+    ${HEADER_INCLUDE_DIR}/limits.h  
+    ${HEADER_INCLUDE_DIR}/utils/process.h 
 )
 
 FIND_PACKAGE(PkgConfig)
