@@ -19,6 +19,7 @@ SET(SRC_LIST
     ${PROJECT_SOURCE_DIR}/src/limits/cpu.cc
     ${PROJECT_SOURCE_DIR}/src/limits/release.cc
     ${PROJECT_SOURCE_DIR}/src/limits/time.cc
+    ${PROJECT_SOURCE_DIR}/src/limits/wait.cc
     ${PROJECT_SOURCE_DIR}/src/utils/process.cc
 )
 
