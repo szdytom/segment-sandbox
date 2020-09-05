@@ -1,5 +1,7 @@
 #include "ssandbox/sandbox.h"
 #include "ssandbox/userns.h"
+#include "ssandbox/limits.h"
+#include <future>
 
 /**
  * @brief Configure Settings inside container
@@ -46,6 +48,20 @@ void ssandbox::create_sandbox(std::shared_ptr<ssandbox::sandbox_t> cfg) {
     user_ns_mgr->setUIDMap(container_pid, 0, getuid(), 1);
     user_ns_mgr->setGIDMap(container_pid, 0, getgid(), 1);
 
+    /* set limits */
+    LimitsMgr limiter(cfg->uid);
+    limiter.task(container_pid);
+
+    if (cfg->limit_config.cpu != -1)
+        limiter.cpu(cfg->limit_config.cpu);
+
+    if (cfg->limit_config.time != -1)
+        limiter.time(cfg->limit_config.time);
+
+    if (cfg->limit_config.memory != -1)
+        limiter.memory(cfg->limit_config.memory);
+
+    limiter.wait();
     waitpid(container_pid, nullptr, 0); /* wait for child to stop */
 
     /* clear mounted fs */
