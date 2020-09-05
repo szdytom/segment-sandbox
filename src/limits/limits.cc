@@ -7,6 +7,7 @@
 
 ssandbox::LimitsMgr::LimitsMgr(std::string uid) {
     this->_uid = uid;
+    this->_time_surveillant_mark = false;
 }
 
 ssandbox::LimitsMgr::~LimitsMgr() {
