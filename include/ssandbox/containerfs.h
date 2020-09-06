@@ -36,13 +36,15 @@ public:
     void enableProc(bool enable = true);
     void setUID(std::string uid);
     void setWorkspace(std::filesystem::path workspace_path);
+    void setImage(std::filesystem::path image_path);
 
 protected:
     virtual void mountMain() = 0;
     virtual void mountExtra() = 0;
-    
+
     std::string uid;
     std::filesystem::path workspace;
+    std::filesystem::path image_path;
 
 private:
     void mountTmp();
@@ -50,6 +52,12 @@ private:
 
     bool _mount_tmp;
     bool _mount_proc;
+};
+
+class OverlayContainerFS : public AbstructContainerFS {
+protected:
+    void mountMain();
+    void mountExtra();
 };
 
 void mount_containerfs(MountInfo cfg);
