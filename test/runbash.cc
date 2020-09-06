@@ -36,7 +36,7 @@ int main() {
 
     cfg->limit_config.cpu = 30;
     cfg->limit_config.time = 100000; // 100s
-    cfg->limit_config.memory = -1; // unlimited
+    cfg->limit_config.memory = -1;   // unlimited
 
     printf("Outside\n");
     create_sandbox(cfg);
