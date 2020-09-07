@@ -2,6 +2,7 @@
 #include "ssandbox/userns.h"
 #include "ssandbox/limits.h"
 #include <future>
+#include "ssandbox/utils/exceptions.h"
 
 /**
  * @brief Configure Settings inside container
@@ -24,7 +25,7 @@ int ssandbox::entry_handle(void *cfg_ptr) {
 /**
  * @brief Create A New Sandbox
  * @param cfg sandbox config
- * @throw std::runtime_error, in which case clone process failed
+ * @throw ssandbox::utils::exceptions::syscall_error, in which case clone process failed
  * 
  * create a sandbox to run cfg->function.
 */
@@ -41,7 +42,7 @@ void ssandbox::create_sandbox(std::shared_ptr<ssandbox::sandbox_t> cfg) {
 
     if (container_pid == -1)
         /* clone process failed */
-        throw std::runtime_error("[Segment Sandbox - create_sandbox()] Clone new process failed");
+        throw ssandbox::utils::exceptions::syscall_error(errno, "Clone new process failed", __FUNCTION__);
 
     /* set uid & gid map */
     auto user_ns_mgr = ssandbox::UserNamespaceMgr::getInstance();

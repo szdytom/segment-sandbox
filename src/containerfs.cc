@@ -5,6 +5,7 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <unistd.h>
+#include "ssandbox/utils/exceptions.h"
 
 #include <fmt/core.h>
 
@@ -20,29 +21,29 @@ void ssandbox::mount_containerfs(ssandbox::MountInfo cfg) {
     std::string options(fmt::format("lowerdir={},upperdir={},workdir={}", cfg.lower_dir.native(), cfg.upper_dir.native(), cfg.workspace.native()));
 
     if (mount("overlay", cfg.point.c_str(), "overlay", 0, options.c_str()))
-        throw std::runtime_error(fmt::format("[Segment Sandbox - {}] Cannot mount overlayfs: [{}] {}", __FUNCTION__, errno, strerror(errno)));
+        throw ssandbox::utils::exceptions::syscall_error(errno, "Cannot mount overlayfs", __FUNCTION__);
 
     /* Now main fs are correctly mounted, let's chroot now. */
     if (chdir(cfg.point.c_str()))
-        throw std::runtime_error(fmt::format("[Segment Sandbox - {}] Cannot change working point: [{}] {}", __FUNCTION__, errno, strerror));
+        throw ssandbox::utils::exceptions::syscall_error(errno, "Cannot change working point", __FUNCTION__);
 
     if (chroot("./"))
-        throw std::runtime_error(fmt::format("[Segment Sandbox - {}] Cannot change root mount point: [{}] {}", __FUNCTION__, errno, strerror(errno)));
+        throw ssandbox::utils::exceptions::syscall_error(errno, "Cannot change root mount point", __FUNCTION__);
 
     if (cfg.mount_proc) {
         if (mkdir("/proc", S_IRWXU | S_IRWXG | S_IRWXO))
-            throw std::runtime_error(fmt::format("[Segment Sandbox - {}] Cannot make /proc for mount: [{}] {}", __FUNCTION__, errno, strerror(errno)));
+            throw ssandbox::utils::exceptions::syscall_error(errno, "Cannot make directory for /proc", __FUNCTION__);
 
         if (mount("proc", "/proc", "proc", 0, nullptr))
-            throw std::runtime_error(fmt::format("[Segment Sandbox - {}] Cannot mount fs of proc: [{}] {}", __FUNCTION__, errno, strerror(errno)));
+            throw ssandbox::utils::exceptions::syscall_error(errno, "Cannot mount fs of proc", __FUNCTION__);
     }
 
     if (cfg.mount_tmp) {
         if (mkdir("/tmp", S_IRWXU | S_IRWXG | S_IRWXO))
-            throw std::runtime_error(fmt::format("[Segment Sandbox - {}] Cannot make /proc for mount: [{}] {}", __FUNCTION__, errno, strerror(errno)));
+            throw ssandbox::utils::exceptions::syscall_error(errno, "Cannot make directory for /tmp", __FUNCTION__);
 
         if (mount("tmpfs", "/tmp", "tmpfs", 0, nullptr))
-            throw std::runtime_error(fmt::format("[Segment Sandbox - {}] Cannot mount fs of tmp: [{}] {}", __FUNCTION__, errno, strerror(errno)));
+            throw ssandbox::utils::exceptions::syscall_error(errno, "Cannot mount fs of tmpfs", __FUNCTION__);
     }
 }
 
@@ -60,22 +61,24 @@ void ssandbox::umount_containerfs(ssandbox::MountInfo cfg) {
     if (cfg.mount_tmp) {
         std::string tmppath((cfg.point / "tmp").native());
         if (umount2(tmppath.c_str(), MNT_FORCE))
-            throw std::runtime_error(fmt::format("[Segment Sandbox - {}] Cannot umount fs of tmp: [{}] {}", __FUNCTION__, errno, strerror(errno)));
-        
+            throw ssandbox::utils::exceptions::syscall_error(errno, "Cannot umount fs of tmpfs", __FUNCTION__);
+
         if (rmdir(tmppath.c_str()))
-            throw std::runtime_error(fmt::format("[Segment Sandbox - {}] Connot remove directory /tmp: [{}] {}", __FUNCTION__, errno, strerror(errno)));
+            throw ssandbox::utils::exceptions::syscall_error(errno, "Cannot remove directory /tmp", __FUNCTION__);
     }
-    
+
     if (cfg.mount_proc) {
         std::string proc_path((cfg.point / "proc").native());
         if (umount2(proc_path.c_str(), MNT_FORCE))
-            throw std::runtime_error(fmt::format("[Segment Sandbox - {}] Cannot umount fs of proc: [{}] {}", __FUNCTION__, errno, strerror(errno)));
-        
+            throw ssandbox::utils::exceptions::syscall_error(errno, "Cannot umount fs of proc", __FUNCTION__);
+
+
         if (rmdir(proc_path.c_str()))
-            throw std::runtime_error(fmt::format("[Segment Sandbox - {}] Connot remove directory /proc: [{}] {}", __FUNCTION__, errno, strerror(errno)));
+            throw ssandbox::utils::exceptions::syscall_error(errno, "Cannot remove directory /proc", __FUNCTION__);
+
     }
 
     /* Now all other are umounted, overlay is no longer busy. It can be umounted right now. */
     if (umount2(cfg.point.c_str(), MNT_FORCE))
-        throw std::runtime_error(fmt::format("[Segment Sandbox - {}] Cannot umount fs of overlay: [{}] {}", __FUNCTION__, errno, strerror(errno)));
+        throw ssandbox::utils::exceptions::syscall_error(errno, "Cannot umount fs of overlayfs", __FUNCTION__);
 }

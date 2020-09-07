@@ -1,10 +1,11 @@
-#include <filesystem>
+#include <cerrno>
 #include <cstdio>
-#include <errno.h>
+#include <filesystem>
 #include <fmt/core.h>
 #include <sys/stat.h>
 #include <unistd.h>
 #include "ssandbox/cgroup.h"
+#include "ssandbox/utils/exceptions.h"
 
 ssandbox::CgroupUnit::CgroupUnit(std::string subsys_type, std::string unit_name) {
     this->_subsys_type = subsys_type;
@@ -28,7 +29,7 @@ void ssandbox::CgroupUnit::write(std::string file, std::string value) {
     FILE* f = std::fopen(file_path.c_str(), "w");
 
     if (f == nullptr)
-        throw std::runtime_error(fmt::format("[Segment Sandbox -{}] Cannot open file cgroup '{}': [{}] {}", __FUNCTION__, file_path.native(), errno, strerror(errno)));
+        throw ssandbox::utils::exceptions::syscall_error(errno, fmt::format("Cannot open cgroup file '{}'"), __FUNCTION__);
 
     fmt::print(f, "{}", value);
     fclose(f);

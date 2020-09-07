@@ -2,6 +2,7 @@
 #include <cstdio>
 #include <errno.h>
 #include <fmt/core.h>
+#include "ssandbox/utils/exceptions.h"
 
 ssandbox::UserNamespaceMgr* ssandbox::UserNamespaceMgr::_instance = nullptr;
 
@@ -11,14 +12,14 @@ ssandbox::UserNamespaceMgr::~UserNamespaceMgr() {}
 ssandbox::UserNamespaceMgr* ssandbox::UserNamespaceMgr::getInstance() {
     if (ssandbox::UserNamespaceMgr::_instance == nullptr)
         ssandbox::UserNamespaceMgr::_instance = new ssandbox::UserNamespaceMgr();
-    
+
     return ssandbox::UserNamespaceMgr::_instance;
 }
 
 void ssandbox::UserNamespaceMgr::setMap(std::string file, int inside_id, int outside_id, int length) {
     FILE* mapfd = fopen(file.c_str(), "w");
     if (mapfd == nullptr)
-        throw std::runtime_error(fmt::format("[Segment Sandbox - {}] Cannot open file '{}': [{}] {}", __FUNCTION__, file, errno, strerror(errno)));
+        throw ssandbox::utils::exceptions::syscall_error(errno, fmt::format("Cannot open file '{}'", file), __FUNCTION__);
 
     fmt::print(mapfd, "{} {} {}", inside_id, outside_id, length);
     fclose(mapfd);
