@@ -22,6 +22,10 @@ SET(SRC_LIST
     ${PROJECT_SOURCE_DIR}/src/limits/wait.cc
     ${PROJECT_SOURCE_DIR}/src/utils/process.cc
     ${PROJECT_SOURCE_DIR}/src/utils/exceptions.cc
+    ${PROJECT_SOURCE_DIR}/src/container-fs/abstruct/all.cc
+    ${PROJECT_SOURCE_DIR}/src/container-fs/abstruct/config.cc
+    ${PROJECT_SOURCE_DIR}/src/container-fs/abstruct/procfs.cc
+    ${PROJECT_SOURCE_DIR}/src/container-fs/abstruct/tmpfs.cc
 )
 
 SET(HEADER_INCLUDE_DIR include/ssandbox)
