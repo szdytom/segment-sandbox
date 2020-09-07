@@ -75,7 +75,6 @@ void ssandbox::umount_containerfs(ssandbox::MountInfo cfg) {
 
         if (rmdir(proc_path.c_str()))
             throw ssandbox::utils::exceptions::syscall_error(errno, "Cannot remove directory /proc", __FUNCTION__);
-
     }
 
     /* Now all other are umounted, overlay is no longer busy. It can be umounted right now. */
