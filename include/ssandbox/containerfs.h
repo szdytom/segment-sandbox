@@ -32,6 +32,8 @@ struct MountInfo {
 class AbstructContainerFS {
 public:
     void mountAll();
+    void umountAll();
+
     void enableTmp(bool enable = true);
     void enableProc(bool enable = true);
     void setUID(std::string uid);
@@ -39,8 +41,13 @@ public:
     void setImage(std::filesystem::path image_path);
 
 protected:
+    std::filesystem::path getFSPath(std::filesystem::path name);
+
     virtual void mountMain() = 0;
+    virtual void umountMain() = 0;
+
     virtual void mountExtra() = 0;
+    virtual void umountExtra() = 0;
 
     std::string uid;
     std::filesystem::path workspace;
@@ -49,6 +56,9 @@ protected:
 private:
     void mountTmp();
     void mountProc();
+
+    void umountTmp();
+    void umountProc();
 
     bool _mount_tmp;
     bool _mount_proc;
