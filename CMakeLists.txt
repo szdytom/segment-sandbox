@@ -21,6 +21,7 @@ SET(SRC_LIST
     ${PROJECT_SOURCE_DIR}/src/limits/time.cc
     ${PROJECT_SOURCE_DIR}/src/limits/wait.cc
     ${PROJECT_SOURCE_DIR}/src/utils/process.cc
+    ${PROJECT_SOURCE_DIR}/src/utils/exceptions.cc
 )
 
 SET(HEADER_INCLUDE_DIR include/ssandbox)
@@ -30,8 +31,9 @@ SET(HEADER_LIST
     ${HEADER_INCLUDE_DIR}/sandbox.h 
     ${HEADER_INCLUDE_DIR}/userns.h 
     ${HEADER_INCLUDE_DIR}/cgroup.h 
-    ${HEADER_INCLUDE_DIR}/limits.h  
+    ${HEADER_INCLUDE_DIR}/limits.h 
     ${HEADER_INCLUDE_DIR}/utils/process.h 
+    ${HEADER_INCLUDE_DIR}/utils/exceptions.h 
 )
 
 FIND_PACKAGE(PkgConfig)
