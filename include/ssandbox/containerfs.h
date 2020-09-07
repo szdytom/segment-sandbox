@@ -36,12 +36,12 @@ public:
 
     void enableTmp(bool enable = true);
     void enableProc(bool enable = true);
-    void setUID(std::string uid);
-    void setWorkspace(std::filesystem::path workspace_path);
-    void setImage(std::filesystem::path image_path);
+    void setUID(const std::string& uid);
+    void setWorkspace(const std::filesystem::path& workspace_path);
+    void setImage(const std::filesystem::path& image_path);
 
 protected:
-    std::filesystem::path getFSPath(std::filesystem::path name);
+    std::filesystem::path getFSPath(const std::filesystem::path& name);
 
     virtual void mountMain() = 0;
     virtual void umountMain() = 0;
