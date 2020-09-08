@@ -54,11 +54,13 @@ protected:
     std::filesystem::path image_path;
 
 private:
-    void mountTmp();
-    void mountProc();
+    void _mountTmp();
+    void _mountProc();
 
-    void umountTmp();
-    void umountProc();
+    void _umountTmp();
+    void _umountProc();
+
+    void _changeRoot();
 
     bool _mount_tmp;
     bool _mount_proc;
