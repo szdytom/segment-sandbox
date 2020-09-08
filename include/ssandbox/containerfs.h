@@ -67,7 +67,10 @@ private:
 class OverlayContainerFS : public AbstructContainerFS {
 protected:
     void mountMain();
+    void umountMain();
+    
     void mountExtra();
+    void umountExtra();
 };
 
 void mount_containerfs(MountInfo cfg);
