@@ -40,15 +40,6 @@ SET(HEADER_LIST
     ${HEADER_INCLUDE_DIR}/utils/exceptions.h 
 )
 
-FIND_PACKAGE(PkgConfig)
-
-PKG_SEARCH_MODULE(FMT REQUIRED fmt)
-
-LINK_LIBRARIES(
-    ${FMT_LIBRARIES}
-    pthread
-)
-
 ADD_LIBRARY(ssandbox STATIC ${SRC_LIST})
 
 INSTALL(TARGETS ssandbox
