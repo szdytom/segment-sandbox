@@ -2,7 +2,7 @@
 #include <exception>
 #include <stdexcept>
 #include <string>
-#include <fmt/format.h>
+#include <fmt/core.h>
 #include "ssandbox/utils/process.h"
 
 ssandbox::LimitsMgr::LimitsMgr(std::string uid) {

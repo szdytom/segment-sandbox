@@ -1,6 +1,6 @@
 #include "ssandbox/utils/process.h"
 #include <filesystem>
-#include <fmt/format.h>
+#include <fmt/core.h>
 #include <limits.h>
 
 bool ssandbox::utils::process::checkProcessAlive(pid_t pid) {

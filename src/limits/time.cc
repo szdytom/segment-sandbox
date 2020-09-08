@@ -2,7 +2,7 @@
 #include <future>
 #include <string>
 #include <thread>
-#include <fmt/format.h>
+#include <fmt/core.h>
 #include <signal.h>
 #include "ssandbox/cgroup.h"
 #include "ssandbox/limits.h"

@@ -1,4 +1,4 @@
-#include <fmt/format.h>
+#include <fmt/core.h>
 #include "ssandbox/containerfs.h"
 #include "ssandbox/utils/exceptions.h"
 

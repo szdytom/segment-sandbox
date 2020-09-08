@@ -1,5 +1,5 @@
 #include <string>
-#include <fmt/format.h>
+#include <fmt/core.h>
 #include "ssandbox/cgroup.h"
 #include "ssandbox/limits.h"
 

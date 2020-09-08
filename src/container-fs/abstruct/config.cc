@@ -1,4 +1,4 @@
-#include <fmt/format.h>
+#include <fmt/core.h>
 #include "ssandbox/containerfs.h"
 
 void ssandbox::AbstructContainerFS::enableTmp(bool enable) {

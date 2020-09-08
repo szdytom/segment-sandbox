@@ -1,7 +1,7 @@
 #include "ssandbox/utils/exceptions.h"
 #include <cerrno>
 #include <cstring>
-#include <fmt/format.h>
+#include <fmt/core.h>
 
 ssandbox::utils::exceptions::syscall_error::syscall_error(int errorno, std::string message, std::string function) {
     this->_message = fmt::format("[Segment Sandbox - {}] {}: [{}] {}", function, message, errorno, strerror(errorno));
