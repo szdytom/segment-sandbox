@@ -2,11 +2,11 @@
 #include "ssandbox/containerfs.h"
 
 void ssandbox::AbstructContainerFS::enableTmp(bool enable) {
-    this->_mount_tmp = true;
+    this->_mount_tmp = enable;
 }
 
 void ssandbox::AbstructContainerFS::enableProc(bool enable) {
-    this->_mount_proc = true;
+    this->_mount_proc = enable;
 }
 
 void ssandbox::AbstructContainerFS::setUID(const std::string& uid) {
