@@ -28,8 +28,7 @@ void ssandbox::AbstructContainerFS::umountAll() {
 }
 
 void ssandbox::AbstructContainerFS::_changeRoot() {
-    /* Now main fs are correctly mounted, let's chroot now. */
-    if (chdir(this->getFSPath("/").c_str()))
+    if (chdir(this->getFSPath("target").c_str()))
         throw ssandbox::utils::exceptions::syscall_error(errno, "Cannot change working point", __FUNCTION__);
 
     if (chroot("./"))
