@@ -26,6 +26,7 @@ SET(SRC_LIST
     ${PROJECT_SOURCE_DIR}/src/container-fs/abstruct/config.cc
     ${PROJECT_SOURCE_DIR}/src/container-fs/abstruct/procfs.cc
     ${PROJECT_SOURCE_DIR}/src/container-fs/abstruct/tmpfs.cc
+    ${PROJECT_SOURCE_DIR}/src/container-fs/overlayfs/mainfs.cc
 )
 
 SET(HEADER_INCLUDE_DIR include/ssandbox)
