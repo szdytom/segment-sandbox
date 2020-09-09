@@ -13,16 +13,16 @@ bool ssandbox::process::checkProcessAlive(pid_t pid) {
     std::string statfilepath = fmt::format("/proc/{}/stat", pid);
     std::FILE* statfile = std::fopen(statfilepath.c_str(), "r");
     int readpid;
-    char *name = new char[PATH_MAX + 1];
-    char *stat = new char[64];
-    fscanf(statfile, "%d %s %s", &readpid, name, stat);
+    char* stat = new char[64];
+    fscanf(statfile, "%*[0-9] (%*[a-zA-Z ]) %s", stat);
 
     bool ret = true;
     for (int i = 0; stat[i] != '\0'; ++i) {
-        if (stat[i] == 'Z') ret = false; // Process has dead
+        if (stat[i] == 'Z')
+            ret = false; // Process has dead
     }
 
-    delete[] name;
+    std::fclose(statfile);
     delete[] stat;
     return ret;
 }
