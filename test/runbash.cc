@@ -35,9 +35,9 @@ int main() {
     container_fs->setWorkspace("/mnt/ssandbox");
     cfg->fs = container_fs;
 
-    cfg->limit_config.cpu = 30;
-    cfg->limit_config.time = 100000; // 100s
-    cfg->limit_config.memory = -1;   // unlimited
+    cfg->limit_config.set_cpu_limit(30);      // 30% on one core
+    cfg->limit_config.set_time_limit(100000); // 100s (1min40s)
+    cfg->limit_config.set_memory_limit(-1);   // unlimited
 
     printf("Outside\n");
     create_sandbox(cfg);

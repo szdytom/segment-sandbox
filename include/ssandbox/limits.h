@@ -20,8 +20,9 @@ public:
     void release();
     void task(pid_t pid);
     void wait();
+    void set_uid(std::string uid);
 
-    LimitsMgr(std::string uid);
+    LimitsMgr();
     ~LimitsMgr();
 
 private:

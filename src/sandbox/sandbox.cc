@@ -24,7 +24,7 @@
  * 1. Set Host Name
  * 2. Mount Filesystem
  */
-int ssandbox::entry_handle(void* cfg_ptr) {
+int entry_handle(void* cfg_ptr) {
     std::shared_ptr<ssandbox::sandbox_t> cfg = *((std::shared_ptr<ssandbox::sandbox_t>*)cfg_ptr);
     sethostname(cfg->hostname.c_str(), cfg->hostname.size());
 
@@ -46,10 +46,11 @@ void ssandbox::create_sandbox(std::shared_ptr<ssandbox::sandbox_t> cfg) {
     std::unique_ptr<char[]> container_stack(new char[cfg->stack_size]);
     char* container_stack_ptr = container_stack.get();
 
-    /* Set UID at mount namespace */
+    /* Set UID at different classes */
     cfg->fs->setUID(cfg->uid);
+    cfg->limit_config.set_uid(cfg->uid);
 
-    pid_t container_pid = clone((ssandbox::container_func)ssandbox::entry_handle,
+    pid_t container_pid = clone((ssandbox::container_func)entry_handle,
                                 container_stack_ptr + cfg->stack_size, /* reverse memory */
                                 SIGCHLD | CLONE_NEWUTS | CLONE_NEWIPC | CLONE_NEWPID | CLONE_NEWNS,
                                 (void*)(&cfg));
@@ -64,19 +65,9 @@ void ssandbox::create_sandbox(std::shared_ptr<ssandbox::sandbox_t> cfg) {
     user_ns_mgr->setGIDMap(container_pid, 0, getgid(), 1);
 
     /* set limits */
-    LimitsMgr limiter(cfg->uid);
-    limiter.task(container_pid);
+    cfg->limit_config.apply(container_pid);
+    cfg->limit_config.wait();
 
-    if (cfg->limit_config.cpu != -1)
-        limiter.cpu(cfg->limit_config.cpu);
-
-    if (cfg->limit_config.time != -1)
-        limiter.time(cfg->limit_config.time);
-
-    if (cfg->limit_config.memory != -1)
-        limiter.memory(cfg->limit_config.memory);
-
-    limiter.wait();
     waitpid(container_pid, nullptr, 0); /* wait for child to stop */
 
     /* clear mounted fs */
