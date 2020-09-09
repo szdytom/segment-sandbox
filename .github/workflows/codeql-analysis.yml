@@ -52,6 +52,20 @@ jobs:
     #    and modify them (or add more) to build your code if your project
     #    uses a compiled language
 
+    - name: install libfmt
+      run: |
+        mkdir dep_libs
+        cd dep_libs
+        wget https://github.com/fmtlib/fmt/releases/download/7.0.3/fmt-7.0.3.zip
+        unzip fmt-7.0.3.zip
+        cd fmt-7.0.3
+        mkdir build
+        cd build
+        cmake -DFMT_TEST=false -DCMAKE_POSITION_INDEPENDENT_CODE=TRUE ..
+        make -j4
+        sudo make install
+        cd ../..
+
     - name: build
       run: |
         cmake .
