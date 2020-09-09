@@ -7,15 +7,11 @@
 
 namespace ssandbox {
 
-namespace utils {
-
 namespace process {
 
 bool checkProcessAlive(pid_t pid);
 
 } // namespace process
-
-} // namespace utils
 
 } // namespace ssandbox
 

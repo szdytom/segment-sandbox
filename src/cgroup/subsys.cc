@@ -15,7 +15,7 @@ void ssandbox::CgroupSubsystem::set(std::string subsys_type) {
     std::filesystem::path subsys_path = ssandbox::cgroup_base;
     subsys_path /= subsys_type;
     if (!std::filesystem::exists(subsys_path))
-        throw std::logic_error(ssandbox::utils::exceptions::getSSErrorMsg(fmt::format("Cgroup Subsystem '{}' does not exists", subsys_type), __FUNCTION__));
+        throw std::logic_error(ssandbox::exceptions::getSSErrorMsg(fmt::format("Cgroup Subsystem '{}' does not exists", subsys_type), __FUNCTION__));
 
     this->_subsys_type = subsys_type;
 }

@@ -29,8 +29,8 @@ void ssandbox::AbstructContainerFS::umountAll() {
 
 void ssandbox::AbstructContainerFS::_changeRoot() {
     if (chdir(this->getFSPath("target").c_str()))
-        throw ssandbox::utils::exceptions::syscall_error(errno, "Cannot change working point", __FUNCTION__);
+        throw ssandbox::exceptions::syscall_error(errno, "Cannot change working point", __FUNCTION__);
 
     if (chroot("./"))
-        throw ssandbox::utils::exceptions::syscall_error(errno, "Cannot change root mount point", __FUNCTION__);
+        throw ssandbox::exceptions::syscall_error(errno, "Cannot change root mount point", __FUNCTION__);
 }

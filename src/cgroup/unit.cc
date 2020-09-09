@@ -29,7 +29,7 @@ void ssandbox::CgroupUnit::write(std::string file, std::string value) {
     FILE* f = std::fopen(file_path.c_str(), "w");
 
     if (f == nullptr)
-        throw ssandbox::utils::exceptions::syscall_error(errno, fmt::format("Cannot open cgroup file '{}'"), __FUNCTION__);
+        throw ssandbox::exceptions::syscall_error(errno, fmt::format("Cannot open cgroup file '{}'"), __FUNCTION__);
 
     fmt::print(f, "{}", value);
     fclose(f);
@@ -42,7 +42,7 @@ std::string ssandbox::CgroupUnit::get(std::string file) {
     FILE* f = std::fopen(file_path.c_str(), "r");
 
     if (f == nullptr)
-        throw ssandbox::utils::exceptions::syscall_error(errno, fmt::format("Cannot open file cgroup '{}'", file), __FUNCTION__);
+        throw ssandbox::exceptions::syscall_error(errno, fmt::format("Cannot open file cgroup '{}'", file), __FUNCTION__);
 
     /* Scan all content inside */
     std::fseek(f, 0, SEEK_END);        /* jump to end */

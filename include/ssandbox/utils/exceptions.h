@@ -9,8 +9,6 @@
 
 namespace ssandbox {
 
-namespace utils {
-
 namespace exceptions {
 
 std::string getSSErrorMsg(std::string message, std::string function);
@@ -27,8 +25,6 @@ private:
 };
 
 } // namespace exceptions
-
-} // namespace utils
 
 } // namespace ssandbox
 

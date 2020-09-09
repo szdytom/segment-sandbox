@@ -16,8 +16,8 @@ ssandbox::LimitsMgr::~LimitsMgr() {
 }
 
 void ssandbox::LimitsMgr::task(pid_t pid) {
-    if (!ssandbox::utils::process::checkProcessAlive(pid))
-        throw std::logic_error(ssandbox::utils::exceptions::getSSErrorMsg(fmt::format("Process {} not found or already dead.", pid), __FUNCTION__));
+    if (!ssandbox::process::checkProcessAlive(pid))
+        throw std::logic_error(ssandbox::exceptions::getSSErrorMsg(fmt::format("Process {} not found or already dead.", pid), __FUNCTION__));
 
     this->_pid = pid;
 }

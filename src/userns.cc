@@ -19,7 +19,7 @@ ssandbox::UserNamespaceMgr* ssandbox::UserNamespaceMgr::getInstance() {
 void ssandbox::UserNamespaceMgr::setMap(std::string file, int inside_id, int outside_id, int length) {
     FILE* mapfd = fopen(file.c_str(), "w");
     if (mapfd == nullptr)
-        throw ssandbox::utils::exceptions::syscall_error(errno, fmt::format("Cannot open file '{}'", file), __FUNCTION__);
+        throw ssandbox::exceptions::syscall_error(errno, fmt::format("Cannot open file '{}'", file), __FUNCTION__);
 
     fmt::print(mapfd, "{} {} {}", inside_id, outside_id, length);
     fclose(mapfd);
