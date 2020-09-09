@@ -1,7 +1,7 @@
 #include "ssandbox/semaphore.h"
 #include <chrono>
 
-void ssandbox::semaphore::create() {
+void ssandbox::semaphore::init() {
     this->_target.reset(new std::promise<int>());
     this->_future = this->_target->get_future();
 }

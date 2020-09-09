@@ -10,7 +10,7 @@ namespace ssandbox {
 
 class semaphore {
 public:
-    void create();
+    void init();
 
     void post(int val);
     void wait();
