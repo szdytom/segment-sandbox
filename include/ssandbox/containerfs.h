@@ -43,11 +43,11 @@ public:
 protected:
     std::filesystem::path getFSPath(const std::filesystem::path& name);
 
-    virtual void mountMain() = 0;
-    virtual void umountMain() = 0;
+    virtual void mountMain() {};
+    virtual void umountMain() {};
 
-    virtual void mountExtra() = 0;
-    virtual void umountExtra() = 0;
+    virtual void mountExtra() {};
+    virtual void umountExtra() {};
 
     std::string uid;
     std::filesystem::path workspace;
