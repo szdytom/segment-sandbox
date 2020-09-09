@@ -13,6 +13,8 @@ namespace utils {
 
 namespace exceptions {
 
+std::string getSSErrorMsg(std::string message, std::string function);
+
 class syscall_error {
 public:
     syscall_error(int errorno, std::string message, std::string function);
