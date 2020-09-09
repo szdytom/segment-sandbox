@@ -10,6 +10,7 @@ SET(CMAKE_CXX_STANDARD 17)
 
 SET(SRC_LIST
     ${PROJECT_SOURCE_DIR}/src/userns.cc
+    ${PROJECT_SOURCE_DIR}/src/semaphore.cc
     ${PROJECT_SOURCE_DIR}/src/sandbox/sandbox.cc
     ${PROJECT_SOURCE_DIR}/src/sandbox/limits.cc
     ${PROJECT_SOURCE_DIR}/src/cgroup/subsys.cc
@@ -32,6 +33,7 @@ SET(SRC_LIST
 SET(HEADER_INCLUDE_DIR include/ssandbox)
 
 SET(HEADER_LIST
+    ${HEADER_INCLUDE_DIR}/semaphore.h
     ${HEADER_INCLUDE_DIR}/ssandbox.h 
     ${HEADER_INCLUDE_DIR}/sandbox.h 
     ${HEADER_INCLUDE_DIR}/containerfs.h 
