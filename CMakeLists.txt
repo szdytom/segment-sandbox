@@ -10,7 +10,6 @@ SET(CMAKE_CXX_STANDARD 17)
 
 SET(SRC_LIST
     ${PROJECT_SOURCE_DIR}/src/sandbox.cc
-    ${PROJECT_SOURCE_DIR}/src/containerfs.cc
     ${PROJECT_SOURCE_DIR}/src/userns.cc
     ${PROJECT_SOURCE_DIR}/src/cgroup/subsys.cc
     ${PROJECT_SOURCE_DIR}/src/cgroup/unit.cc
