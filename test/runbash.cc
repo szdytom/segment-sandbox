@@ -1,7 +1,6 @@
 #include <cerrno>
 #include <cstring>
-#include <ssandbox/containerfs.h>
-#include <ssandbox/sandbox.h>
+#include <ssandbox/ssandbox.h>
 #include <unistd.h>
 using namespace std;
 using namespace ssandbox;
