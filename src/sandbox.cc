@@ -28,7 +28,7 @@ int ssandbox::entry_handle(void* cfg_ptr) {
     std::shared_ptr<ssandbox::sandbox_t> cfg = *((std::shared_ptr<ssandbox::sandbox_t>*)cfg_ptr);
     sethostname(cfg->hostname.c_str(), cfg->hostname.size());
 
-    ssandbox::mount_containerfs(cfg->mnt_config);
+    cfg->fs->mountAll();
     int res = cfg->function(cfg->func_args);
     return res;
 }
@@ -45,6 +45,9 @@ void ssandbox::create_sandbox(std::shared_ptr<ssandbox::sandbox_t> cfg) {
     /* new will throw out a alloc_error if fail, so we don't need to handle nullptr */
     std::unique_ptr<char[]> container_stack(new char[cfg->stack_size]);
     char* container_stack_ptr = container_stack.get();
+
+    /* Set UID at mount namespace */
+    cfg->fs->setUID(cfg->uid);
 
     pid_t container_pid = clone((ssandbox::container_func)ssandbox::entry_handle,
                                 container_stack_ptr + cfg->stack_size, /* reverse memory */
@@ -77,7 +80,7 @@ void ssandbox::create_sandbox(std::shared_ptr<ssandbox::sandbox_t> cfg) {
     waitpid(container_pid, nullptr, 0); /* wait for child to stop */
 
     /* clear mounted fs */
-    ssandbox::umount_containerfs(cfg->mnt_config);
+    cfg->fs->umountAll();
 
     /* unique_ptr frees memory */
 }

@@ -27,7 +27,7 @@ struct sandbox_t {
     container_func function;      /* function to run inside sandbox */
     void* func_args;              /* fnuction's args */
     std::string hostname;         /* hostname inside container */
-    MountInfo mnt_config;         /* Mount Config */
+    AbstructContainerFS* fs;      /* handler filesystem in container */
     sandbox_limit_t limit_config; /* Resource Limit Config */
 };
 
