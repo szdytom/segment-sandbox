@@ -1,6 +1,8 @@
 #include <cerrno>
 #include <cstring>
+#include <ssandbox/containerfs.h>
 #include <ssandbox/sandbox.h>
+#include <unistd.h>
 using namespace std;
 using namespace ssandbox;
 
@@ -23,16 +25,16 @@ int main() {
     shared_ptr<sandbox_t> cfg(new sandbox_t);
     cfg->function = func;
     cfg->func_args = container_args;
-    cfg->stack_size = 1024 * 1024; // 1MB
+    cfg->stack_size = 5 * 1024 * 1024; // 5MB
     cfg->hostname = "container";
     cfg->uid = "test";
 
-    cfg->mnt_config.point = "/mnt/sandbox/merge";
-    cfg->mnt_config.lower_dir = "/mnt/image";
-    cfg->mnt_config.upper_dir = "/mnt/sandbox/upper";
-    cfg->mnt_config.workspace = "/mnt/sandbox/work";
-    cfg->mnt_config.mount_proc = true;
-    cfg->mnt_config.mount_tmp = true;
+    auto container_fs = new OverlayContainerFS();
+    container_fs->enableProc();
+    container_fs->enableTmp();
+    container_fs->setImage("/mnt/image");
+    container_fs->setWorkspace("/mnt/ssandbox");
+    cfg->fs = container_fs;
 
     cfg->limit_config.cpu = 30;
     cfg->limit_config.time = 100000; // 100s
@@ -41,5 +43,7 @@ int main() {
     printf("Outside\n");
     create_sandbox(cfg);
     printf("Returned to father!\n");
+
+    delete container_fs;
     return 0;
 }
