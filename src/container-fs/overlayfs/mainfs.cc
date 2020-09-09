@@ -3,7 +3,7 @@
 #include "ssandbox/utils/exceptions.h"
 
 void ssandbox::OverlayContainerFS::mountMain() {
-    std::string options(fmt::format("lowerdir={},upperdir={},workdir={}", this->image_path.native(), this->getFSPath("overlay_upper").native(), this->getFSPath("overlayfs_work").native()));
+    std::string options(fmt::format("lowerdir={},upperdir={},workdir={}", this->image_path.string(), this->getFSPath("overlay_upper").string(), this->getFSPath("overlayfs_work").string()));
 
     if (mount("overlay", this->getFSPath("target").c_str(), "overlay", 0, options.c_str()))
         throw ssandbox::utils::exceptions::syscall_error(errno, "Cannot mount overlayfs", __FUNCTION__);

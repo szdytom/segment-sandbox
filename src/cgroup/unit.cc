@@ -42,7 +42,7 @@ std::string ssandbox::CgroupUnit::get(std::string file) {
     FILE* f = std::fopen(file_path.c_str(), "r");
 
     if (f == nullptr)
-        throw std::runtime_error(fmt::format("[Segment Sandbox -{}] Cannot open file cgroup '{}': [{}] {}", __FUNCTION__, file_path.native(), errno, strerror(errno)));
+        throw std::runtime_error(fmt::format("[Segment Sandbox -{}] Cannot open file cgroup '{}': [{}] {}", __FUNCTION__, file_path.string(), errno, strerror(errno)));
 
     /* Scan all content inside */
     std::fseek(f, 0, SEEK_END);        /* jump to end */

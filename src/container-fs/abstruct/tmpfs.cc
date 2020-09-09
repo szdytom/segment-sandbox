@@ -13,7 +13,7 @@ void ssandbox::AbstructContainerFS::_mountTmp() {
 }
 
 void ssandbox::AbstructContainerFS::_umountTmp() {
-    std::string tmppath((this->getFSPath("target") / "tmp").native());
+    std::string tmppath((this->getFSPath("target") / "tmp").string());
     if (umount2(tmppath.c_str(), MNT_FORCE))
         throw ssandbox::utils::exceptions::syscall_error(errno, "Cannot umount fs of tmpfs", __FUNCTION__);
 

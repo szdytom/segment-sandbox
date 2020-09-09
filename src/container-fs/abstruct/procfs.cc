@@ -13,7 +13,7 @@ void ssandbox::AbstructContainerFS::_mountProc() {
 }
 
 void ssandbox::AbstructContainerFS::_umountProc() {
-    std::string proc_path((this->getFSPath("target") / "proc").native());
+    std::string proc_path((this->getFSPath("target") / "proc").string());
     if (umount2(proc_path.c_str(), MNT_FORCE))
         throw ssandbox::utils::exceptions::syscall_error(errno, "Cannot umount fs of proc", __FUNCTION__);
 
