@@ -3,8 +3,8 @@
 #include "ssandbox/cgroup.h"
 #include "ssandbox/limits.h"
 
-void ssandbox::LimitsMgr::cpu(unsigned int limit) {
-    auto cs = ssandbox::CgroupSubsystem("cpu");
+void ssandbox::limits_manager::cpu(unsigned int limit) {
+    auto cs = ssandbox::cgroup_subsystem("cpu");
     auto c = cs.create(fmt::format("ssandbox_{}", this->_uid));
 
     c->write("cpu.cfs_period_us", "1000000");

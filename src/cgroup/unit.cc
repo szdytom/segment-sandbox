@@ -7,7 +7,7 @@
 #include "ssandbox/cgroup.h"
 #include "ssandbox/utils/exceptions.h"
 
-ssandbox::CgroupUnit::CgroupUnit(std::string subsys_type, std::string unit_name) {
+ssandbox::cgroup_unit::cgroup_unit(std::string subsys_type, std::string unit_name) {
     this->_subsys_type = subsys_type;
     this->_unit_name = unit_name;
 
@@ -20,9 +20,9 @@ ssandbox::CgroupUnit::CgroupUnit(std::string subsys_type, std::string unit_name)
     }
 }
 
-ssandbox::CgroupUnit::~CgroupUnit() {}
+ssandbox::cgroup_unit::~cgroup_unit() {}
 
-void ssandbox::CgroupUnit::write(std::string file, std::string value) {
+void ssandbox::cgroup_unit::write(std::string file, std::string value) {
     std::filesystem::path file_path(this->_unit_path);
     file_path /= file;
 
@@ -35,7 +35,7 @@ void ssandbox::CgroupUnit::write(std::string file, std::string value) {
     fclose(f);
 }
 
-std::string ssandbox::CgroupUnit::get(std::string file) {
+std::string ssandbox::cgroup_unit::get(std::string file) {
     std::filesystem::path file_path(this->_unit_path);
     file_path /= file;
 
@@ -58,6 +58,6 @@ std::string ssandbox::CgroupUnit::get(std::string file) {
     return result;
 }
 
-void ssandbox::CgroupUnit::remove() {
+void ssandbox::cgroup_unit::remove() {
     std::filesystem::remove(this->_unit_path);
 }

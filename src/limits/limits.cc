@@ -6,21 +6,21 @@
 #include "ssandbox/utils/exceptions.h"
 #include "ssandbox/utils/process.h"
 
-ssandbox::LimitsMgr::LimitsMgr() {
+ssandbox::limits_manager::limits_manager() {
     this->_time_surveillant_mark = false;
 }
 
-ssandbox::LimitsMgr::~LimitsMgr() {
+ssandbox::limits_manager::~limits_manager() {
     this->release();
 }
 
-void ssandbox::LimitsMgr::task(pid_t pid) {
-    if (!ssandbox::process::checkProcessAlive(pid))
-        throw std::logic_error(ssandbox::exceptions::getSSErrorMsg(fmt::format("Process {} not found or already dead.", pid), __FUNCTION__));
+void ssandbox::limits_manager::task(pid_t pid) {
+    if (!ssandbox::process::check_process_alive(pid))
+        throw std::logic_error(ssandbox::exceptions::get_formated_ssandbox_errormsg(fmt::format("Process {} not found or already dead.", pid), __FUNCTION__));
 
     this->_pid = pid;
 }
 
-void ssandbox::LimitsMgr::set_uid(std::string uid) {
+void ssandbox::limits_manager::set_uid(std::string uid) {
     this->_uid = uid;
 }

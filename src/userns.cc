@@ -4,19 +4,19 @@
 #include <fmt/core.h>
 #include "ssandbox/utils/exceptions.h"
 
-ssandbox::UserNamespaceMgr* ssandbox::UserNamespaceMgr::_instance = nullptr;
+ssandbox::user_namespace_manager* ssandbox::user_namespace_manager::_instance = nullptr;
 
-ssandbox::UserNamespaceMgr::UserNamespaceMgr() {}
-ssandbox::UserNamespaceMgr::~UserNamespaceMgr() {}
+ssandbox::user_namespace_manager::user_namespace_manager() {}
+ssandbox::user_namespace_manager::~user_namespace_manager() {}
 
-ssandbox::UserNamespaceMgr* ssandbox::UserNamespaceMgr::getInstance() {
-    if (ssandbox::UserNamespaceMgr::_instance == nullptr)
-        ssandbox::UserNamespaceMgr::_instance = new ssandbox::UserNamespaceMgr();
+ssandbox::user_namespace_manager* ssandbox::user_namespace_manager::get_instance() {
+    if (ssandbox::user_namespace_manager::_instance == nullptr)
+        ssandbox::user_namespace_manager::_instance = new ssandbox::user_namespace_manager();
 
-    return ssandbox::UserNamespaceMgr::_instance;
+    return ssandbox::user_namespace_manager::_instance;
 }
 
-void ssandbox::UserNamespaceMgr::setMap(std::string file, int inside_id, int outside_id, int length) {
+void ssandbox::user_namespace_manager::_set_map(std::string file, int inside_id, int outside_id, int length) {
     FILE* mapfd = fopen(file.c_str(), "w");
     if (mapfd == nullptr)
         throw ssandbox::exceptions::syscall_error(errno, fmt::format("Cannot open file '{}'", file), __FUNCTION__);
@@ -25,10 +25,10 @@ void ssandbox::UserNamespaceMgr::setMap(std::string file, int inside_id, int out
     fclose(mapfd);
 }
 
-void ssandbox::UserNamespaceMgr::setUIDMap(pid_t pid, int inside_id, int outside_id, int length) {
-    this->setMap(fmt::format("/proc/{}/uid_map", pid), inside_id, outside_id, length);
+void ssandbox::user_namespace_manager::set_uid_map(pid_t pid, int inside_id, int outside_id, int length) {
+    this->_set_map(fmt::format("/proc/{}/uid_map", pid), inside_id, outside_id, length);
 }
 
-void ssandbox::UserNamespaceMgr::setGIDMap(pid_t pid, int inside_id, int outside_id, int length) {
-    this->setMap(fmt::format("/proc/{}/gid_map", pid), inside_id, outside_id, length);
+void ssandbox::user_namespace_manager::set_gid_map(pid_t pid, int inside_id, int outside_id, int length) {
+    this->_set_map(fmt::format("/proc/{}/gid_map", pid), inside_id, outside_id, length);
 }

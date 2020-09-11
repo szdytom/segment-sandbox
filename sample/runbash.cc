@@ -38,10 +38,10 @@ int main() {
     cfg->uid = "test";
 
     auto container_fs = new OverlayContainerFS();
-    container_fs->enableProc();
-    container_fs->enableTmp();
-    container_fs->setImage("/mnt/image");
-    container_fs->setWorkspace("/mnt/ssandbox");
+    container_fs->enable_proc();
+    container_fs->enable_tmp();
+    container_fs->set_image("/mnt/image");
+    container_fs->set_workspace("/mnt/ssandbox");
     cfg->fs = container_fs;
 
     cfg->limit_config.set_cpu_limit(30);      // 30% on one core

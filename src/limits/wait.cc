@@ -3,7 +3,7 @@
 #include "ssandbox/cgroup.h"
 #include "ssandbox/limits.h"
 
-void ssandbox::LimitsMgr::wait() {
+void ssandbox::limits_manager::wait() {
     if (this->_time_surveillant_mark)
         this->_time_surveillant.wait();
     

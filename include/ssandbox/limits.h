@@ -11,7 +11,7 @@
 
 namespace ssandbox {
 
-class LimitsMgr {
+class limits_manager {
 public:
     void memory(unsigned long long limit);
     void time(unsigned limit);
@@ -22,8 +22,8 @@ public:
     void wait();
     void set_uid(std::string uid);
 
-    LimitsMgr();
-    ~LimitsMgr();
+    limits_manager();
+    ~limits_manager();
 
 private:
     void _watchTimeLimit();
@@ -35,7 +35,7 @@ private:
     bool _time_surveillant_mark;
     std::future<void> _time_surveillant;
 
-    std::vector<ssandbox::CgroupUnit*> _used_cgroup;
+    std::vector<ssandbox::cgroup_unit*> _used_cgroup;
 };
 
 }; // namespace ssandbox

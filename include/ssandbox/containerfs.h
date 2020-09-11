@@ -11,45 +11,45 @@ namespace ssandbox {
 
 class AbstructContainerFS {
 public:
-    void mountAll();
-    void umountAll();
+    void mount_all();
+    void umount_all();
 
-    void enableTmp(bool enable = true);
-    void enableProc(bool enable = true);
-    void setUID(const std::string& uid);
-    void setWorkspace(const std::filesystem::path& workspace_path);
-    void setImage(const std::filesystem::path& image_path);
+    void enable_tmp(bool enable = true);
+    void enable_proc(bool enable = true);
+    void set_uid(const std::string& uid);
+    void set_workspace(const std::filesystem::path& workspace_path);
+    void set_image(const std::filesystem::path& image_path);
 
 protected:
-    std::filesystem::path getFSPath(const std::filesystem::path& name);
+    std::filesystem::path get_fs_path(const std::filesystem::path& name);
 
-    virtual void mountMain() {};
-    virtual void umountMain() {};
+    virtual void mount_main() {};
+    virtual void umount_main() {};
 
-    virtual void mountExtra() {};
-    virtual void umountExtra() {};
+    virtual void mount_extra() {};
+    virtual void umount_extra() {};
 
     std::string uid;
     std::filesystem::path workspace;
     std::filesystem::path image_path;
 
 private:
-    void _mountTmp();
-    void _mountProc();
+    void _mount_tmp();
+    void _mount_proc();
 
-    void _umountTmp();
-    void _umountProc();
+    void _umount_tmp();
+    void _umount_proc();
 
-    void _changeRoot();
+    void _change_root();
 
-    bool _mount_tmp;
-    bool _mount_proc;
+    bool _mount_tmp_flag;
+    bool _mount_proc_flag;
 };
 
 class OverlayContainerFS : public AbstructContainerFS {
 protected:
-    void mountMain();
-    void umountMain();
+    void mount_main();
+    void umount_main();
 };
 
 } /* namespace ssandbox */

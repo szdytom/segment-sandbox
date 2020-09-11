@@ -4,7 +4,7 @@
 #include "ssandbox/containerfs.h"
 #include "ssandbox/utils/exceptions.h"
 
-void ssandbox::AbstructContainerFS::_mountProc() {
+void ssandbox::AbstructContainerFS::_mount_proc() {
     if (mkdir("/proc", S_IRWXU | S_IRWXG | S_IRWXO))
         throw ssandbox::exceptions::syscall_error(errno, "Cannot make directory for /proc", __FUNCTION__);
 
@@ -12,8 +12,8 @@ void ssandbox::AbstructContainerFS::_mountProc() {
         throw ssandbox::exceptions::syscall_error(errno, "Cannot mount fs of proc", __FUNCTION__);
 }
 
-void ssandbox::AbstructContainerFS::_umountProc() {
-    std::string proc_path((this->getFSPath("target") / "proc").string());
+void ssandbox::AbstructContainerFS::_umount_proc() {
+    std::string proc_path((this->get_fs_path("target") / "proc").string());
     if (umount2(proc_path.c_str(), MNT_FORCE))
         throw ssandbox::exceptions::syscall_error(errno, "Cannot umount fs of proc", __FUNCTION__);
 

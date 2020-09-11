@@ -14,7 +14,7 @@
 
 namespace ssandbox {
 
-typedef int (*container_func)(void* arg);
+typedef int (*container_func_t)(void* arg);
 
 class limit_info_t {
 public:
@@ -31,7 +31,7 @@ public:
 
 private:
     std::string _uid;
-    LimitsMgr* _limiter;
+    limits_manager* _limiter;
 
     unsigned int _cpu;
     unsigned int _time;
@@ -41,7 +41,7 @@ private:
 struct sandbox_t {
     std::string uid;           /* an unique ID for this sandbox */
     int stack_size;            /* stack size of new program, in bytes */
-    container_func function;   /* function to run inside sandbox */
+    container_func_t function;   /* function to run inside sandbox */
     void* func_args;           /* fnuction's args */
     std::string hostname;      /* hostname inside container */
     AbstructContainerFS* fs;   /* handler filesystem in container */

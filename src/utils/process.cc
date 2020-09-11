@@ -3,7 +3,7 @@
 #include <fmt/core.h>
 #include <limits.h>
 
-bool ssandbox::process::checkProcessAlive(pid_t pid) {
+bool ssandbox::process::check_process_alive(pid_t pid) {
     std::filesystem::path process_proc("/proc");
     process_proc /= std::to_string(pid);
 

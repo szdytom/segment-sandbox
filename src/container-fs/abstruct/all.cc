@@ -3,32 +3,32 @@
 #include "ssandbox/containerfs.h"
 #include "ssandbox/utils/exceptions.h"
 
-void ssandbox::AbstructContainerFS::mountAll() {
-    this->mountMain();
-    this->_changeRoot();
+void ssandbox::AbstructContainerFS::mount_all() {
+    this->mount_main();
+    this->_change_root();
 
-    if (this->_mount_tmp)
-        this->_mountTmp();
+    if (this->_mount_tmp_flag)
+        this->_mount_tmp();
 
-    if (this->_mount_proc)
-        this->_mountProc();
+    if (this->_mount_proc_flag)
+        this->_mount_proc();
 
-    this->mountExtra();
+    this->mount_extra();
 }
 
-void ssandbox::AbstructContainerFS::umountAll() {
-    if (this->_mount_tmp)
-        this->_umountTmp();
+void ssandbox::AbstructContainerFS::umount_all() {
+    if (this->_mount_tmp_flag)
+        this->_umount_tmp();
 
-    if (this->_mount_proc)
-        this->_umountProc();
+    if (this->_mount_proc_flag)
+        this->_umount_proc();
 
-    this->umountMain();
-    this->umountExtra();
+    this->umount_main();
+    this->umount_extra();
 }
 
-void ssandbox::AbstructContainerFS::_changeRoot() {
-    if (chdir(this->getFSPath("target").c_str()))
+void ssandbox::AbstructContainerFS::_change_root() {
+    if (chdir(this->get_fs_path("target").c_str()))
         throw ssandbox::exceptions::syscall_error(errno, "Cannot change working point", __FUNCTION__);
 
     if (chroot("./"))

@@ -10,10 +10,10 @@ namespace ssandbox {
 
 const std::filesystem::path cgroup_base("/sys/fs/cgroup/");
 
-class CgroupUnit {
+class cgroup_unit {
 public:
-    CgroupUnit(std::string subsys_type, std::string unit_name);
-    ~CgroupUnit();
+    cgroup_unit(std::string subsys_type, std::string unit_name);
+    ~cgroup_unit();
 
     void write(std::string file, std::string value);
     std::string get(std::string file);
@@ -25,14 +25,14 @@ private:
     std::filesystem::path _unit_path;
 };
 
-class CgroupSubsystem {
+class cgroup_subsystem {
 public:
-    CgroupSubsystem();
-    CgroupSubsystem(std::string subsys_type);
-    ~CgroupSubsystem();
+    cgroup_subsystem();
+    cgroup_subsystem(std::string subsys_type);
+    ~cgroup_subsystem();
 
     void set(std::string subsys_type);
-    CgroupUnit* create(std::string unit_name);
+    cgroup_unit* create(std::string unit_name);
 
 private:
     std::string _subsys_type;

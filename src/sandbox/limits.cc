@@ -1,7 +1,7 @@
 #include "ssandbox/sandbox.h"
 
 ssandbox::limit_info_t::limit_info_t() {
-    this->_limiter = new LimitsMgr;
+    this->_limiter = new limits_manager;
 
     this->_cpu = -1;
     this->_memory = -1;

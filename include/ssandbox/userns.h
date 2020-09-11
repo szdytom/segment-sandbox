@@ -8,19 +8,19 @@
 
 namespace ssandbox {
 
-class UserNamespaceMgr {
+class user_namespace_manager {
 public:
-    void setUIDMap(pid_t pid, int inside_id, int outside_id, int length);
-    void setGIDMap(pid_t pid, int inside_id, int outside_id, int length);
-    static UserNamespaceMgr* getInstance();
+    void set_uid_map(pid_t pid, int inside_id, int outside_id, int length);
+    void set_gid_map(pid_t pid, int inside_id, int outside_id, int length);
+    static user_namespace_manager* get_instance();
 
 private:
-    UserNamespaceMgr();
-    ~UserNamespaceMgr();
+    user_namespace_manager();
+    ~user_namespace_manager();
 
-    static UserNamespaceMgr* _instance;
+    static user_namespace_manager* _instance;
 
-    void setMap(std::string file, int inside_id, int outside_id, int length);
+    void _set_map(std::string file, int inside_id, int outside_id, int length);
 };
 
 } // namespace ssandbox

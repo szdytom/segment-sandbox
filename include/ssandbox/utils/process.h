@@ -9,7 +9,7 @@ namespace ssandbox {
 
 namespace process {
 
-bool checkProcessAlive(pid_t pid);
+bool check_process_alive(pid_t pid);
 
 } // namespace process
 

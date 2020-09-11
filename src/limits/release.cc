@@ -3,9 +3,9 @@
 #include "ssandbox/cgroup.h"
 #include "ssandbox/limits.h"
 
-void ssandbox::LimitsMgr::release() {
+void ssandbox::limits_manager::release() {
     this->wait();
-    for (ssandbox::CgroupUnit* c : this->_used_cgroup) {
+    for (ssandbox::cgroup_unit* c : this->_used_cgroup) {
         c->remove();
         delete c;
     }

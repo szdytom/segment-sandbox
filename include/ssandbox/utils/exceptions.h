@@ -11,7 +11,7 @@ namespace ssandbox {
 
 namespace exceptions {
 
-std::string getSSErrorMsg(std::string message, std::string function);
+std::string get_formated_ssandbox_errormsg(std::string message, std::string function);
 
 class syscall_error : public std::exception {
 public:

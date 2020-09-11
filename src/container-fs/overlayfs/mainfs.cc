@@ -2,14 +2,14 @@
 #include "ssandbox/containerfs.h"
 #include "ssandbox/utils/exceptions.h"
 
-void ssandbox::OverlayContainerFS::mountMain() {
-    std::string options(fmt::format("lowerdir={},upperdir={},workdir={}", this->image_path.string(), this->getFSPath("overlay_upper").string(), this->getFSPath("overlayfs_work").string()));
+void ssandbox::OverlayContainerFS::mount_main() {
+    std::string options(fmt::format("lowerdir={},upperdir={},workdir={}", this->image_path.string(), this->get_fs_path("overlay_upper").string(), this->get_fs_path("overlayfs_work").string()));
 
-    if (mount("overlay", this->getFSPath("target").c_str(), "overlay", 0, options.c_str()))
+    if (mount("overlay", this->get_fs_path("target").c_str(), "overlay", 0, options.c_str()))
         throw ssandbox::exceptions::syscall_error(errno, "Cannot mount overlayfs", __FUNCTION__);
 }
 
-void ssandbox::OverlayContainerFS::umountMain() {
-    if (umount2(this->getFSPath("target").c_str(), MNT_FORCE))
+void ssandbox::OverlayContainerFS::umount_main() {
+    if (umount2(this->get_fs_path("target").c_str(), MNT_FORCE))
         throw ssandbox::exceptions::syscall_error(errno, "Cannot umount fs of overlayfs", __FUNCTION__);
 }
