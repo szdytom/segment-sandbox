@@ -14,7 +14,7 @@ bool ssandbox::process::checkProcessAlive(pid_t pid) {
     std::FILE* statfile = std::fopen(statfilepath.c_str(), "r");
     int readpid;
     char* stat = new char[64];
-    fscanf(statfile, "%*[0-9] (%*[a-zA-Z ]) %s", stat);
+    fscanf(statfile, "%*[0-9] (%*[^/()\n\r]) %s", stat);
 
     bool ret = true;
     for (int i = 0; stat[i] != '\0'; ++i) {

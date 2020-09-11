@@ -87,8 +87,8 @@ void ssandbox::create_sandbox(std::shared_ptr<ssandbox::sandbox_t> cfg) {
     prepar_config->semaphore->post(0);
 
     /* wait for child to stop */
-    cfg->limit_config.wait();
     waitpid(container_pid, nullptr, 0);
+    cfg->limit_config.wait();
 
     /* clear mounted fs */
     cfg->fs->umountAll();
