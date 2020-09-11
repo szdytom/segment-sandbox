@@ -1,6 +1,7 @@
 #include <cerrno>
 #include <cstring>
 #include <ssandbox/ssandbox.h>
+#include <sys/wait.h>
 #include <unistd.h>
 using namespace std;
 using namespace ssandbox;
@@ -14,8 +15,16 @@ int func(void* args) {
 
     char** xargs = (char**)args;
     printf("+%s\n", xargs[0]);
-    execv(xargs[0], xargs);
-    printf("Err [%d]: %s\n", errno, strerror(errno));
+
+    int child = fork();
+    if (child == 0) {
+        printf("Inside fork [%05d]!\n", getpid());
+        execv(xargs[0], xargs);
+    } else {
+        printf("Father! child: %d\n", child);
+        waitpid(child, nullptr, 0);
+    }
+
     printf("exiting\n");
     return 0;
 }
