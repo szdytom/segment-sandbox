@@ -19,7 +19,6 @@ void ssandbox::semaphore::post(int val) {
 void ssandbox::semaphore::wait() {
     while (!this->_mark) {
         std::this_thread::sleep_for(std::chrono::microseconds(ssandbox::semaphore::_time));
-        fmt::print("Waiting: {}\n", this->_mark);
     }
 }
 
