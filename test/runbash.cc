@@ -16,7 +16,7 @@ int func(void* args) {
     char** xargs = (char**)args;
     printf("+%s\n", xargs[0]);
 
-    int child = fork();
+    int child = vfork();
     if (child == 0) {
         printf("Inside fork [%05d]!\n", getpid());
         execv(xargs[0], xargs);
