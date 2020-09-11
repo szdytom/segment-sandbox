@@ -12,8 +12,14 @@
 #include <sys/wait.h>
 #include <unistd.h>
 #include "ssandbox/limits.h"
+#include "ssandbox/semaphore.h"
 #include "ssandbox/userns.h"
 #include "ssandbox/utils/exceptions.h"
+
+struct sandbox_prepar_info {
+    ssandbox::sandbox_t* cfg;
+    ssandbox::semaphore* semaphore;
+};
 
 /**
  * @brief Configure Settings inside container
@@ -25,10 +31,16 @@
  * 2. Mount Filesystem
  */
 int entry_handle(void* cfg_ptr) {
-    std::shared_ptr<ssandbox::sandbox_t> cfg = *((std::shared_ptr<ssandbox::sandbox_t>*)cfg_ptr);
+    auto prepar_cfg = (sandbox_prepar_info*)(cfg_ptr);
+    auto cfg = prepar_cfg->cfg;
+
     sethostname(cfg->hostname.c_str(), cfg->hostname.size());
 
     cfg->fs->mountAll();
+
+    /* Now it is prepared to run costum function, but we need to wait for the semaphore first */
+    prepar_cfg->semaphore->wait();
+
     int res = cfg->function(cfg->func_args);
     return res;
 }
@@ -50,10 +62,14 @@ void ssandbox::create_sandbox(std::shared_ptr<ssandbox::sandbox_t> cfg) {
     cfg->fs->setUID(cfg->uid);
     cfg->limit_config.set_uid(cfg->uid);
 
+    auto prepar_config = new sandbox_prepar_info;
+    prepar_config->cfg = cfg.get();
+    prepar_config->semaphore = new ssandbox::semaphore;
+
     pid_t container_pid = clone((ssandbox::container_func)entry_handle,
                                 container_stack_ptr + cfg->stack_size, /* reverse memory */
-                                SIGCHLD | CLONE_NEWUTS | CLONE_NEWIPC | CLONE_NEWPID | CLONE_NEWNS,
-                                (void*)(&cfg));
+                                SIGCHLD | CLONE_VM | CLONE_NEWUTS | CLONE_NEWIPC | CLONE_NEWPID | CLONE_NEWNS,
+                                (void*)prepar_config);
 
     if (container_pid == -1)
         /* clone process failed */
@@ -66,12 +82,18 @@ void ssandbox::create_sandbox(std::shared_ptr<ssandbox::sandbox_t> cfg) {
 
     /* set limits */
     cfg->limit_config.apply(container_pid);
-    cfg->limit_config.wait();
 
-    waitpid(container_pid, nullptr, 0); /* wait for child to stop */
+    /* send semaphore */
+    prepar_config->semaphore->post(0);
+
+    /* wait for child to stop */
+    cfg->limit_config.wait();
+    waitpid(container_pid, nullptr, 0);
 
     /* clear mounted fs */
     cfg->fs->umountAll();
 
+    delete prepar_config->semaphore;
+    delete prepar_config;
     /* unique_ptr frees memory */
 }

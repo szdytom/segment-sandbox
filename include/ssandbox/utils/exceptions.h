@@ -13,7 +13,7 @@ namespace exceptions {
 
 std::string getSSErrorMsg(std::string message, std::string function);
 
-class syscall_error {
+class syscall_error : public std::exception {
 public:
     syscall_error(int errorno, std::string message, std::string function);
     ~syscall_error();

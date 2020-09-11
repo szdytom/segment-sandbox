@@ -3,14 +3,12 @@
 #ifndef SSANDBOX_SEMAPHORE_H
 #define SSANDBOX_SEMAPHORE_H
 
-#include <future>
-#include <memory>
-
 namespace ssandbox {
 
 class semaphore {
 public:
-    void init();
+    semaphore();
+    ~semaphore();
 
     void post(int val);
     void wait();
@@ -18,8 +16,11 @@ public:
     int get();
 
 private:
-    std::shared_ptr<std::promise<int>> _target;
-    std::future<int> _future;
+    int _value;
+    bool _mark;
+
+public:
+    static const unsigned int _time;
 };
 
 }; // namespace ssandbox
