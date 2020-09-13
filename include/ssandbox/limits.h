@@ -54,6 +54,8 @@ public:
     void set_fork_limit(unsigned int process);
 
 private:
+    void _not_applied_required(std::string function_name);
+
     std::string _uid;
     limits_manager* _limiter;
 
@@ -61,6 +63,8 @@ private:
     unsigned int _time;
     unsigned long long _memory;
     unsigned int _process;
+
+    bool _limits_applied;
 };
 
 }; // namespace ssandbox
