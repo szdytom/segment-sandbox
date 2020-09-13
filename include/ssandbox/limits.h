@@ -25,7 +25,7 @@ public:
     ~limits_manager();
 
 private:
-    void _watchTimeLimit();
+    void _watch_time_limit();
 
     pid_t _pid;
     std::string _uid;
