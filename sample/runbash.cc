@@ -36,6 +36,7 @@ int main() {
     cfg->stack_size = 5 * 1024 * 1024; // 5MB
     cfg->hostname = "container";
     cfg->uid = "test";
+    cfg->enable_network = false;
 
     auto container_fs = new OverlayContainerFS();
     container_fs->enable_proc();
