@@ -11,8 +11,7 @@ SET(CMAKE_CXX_STANDARD 17)
 SET(SRC_LIST
     ${PROJECT_SOURCE_DIR}/src/userns.cc
     ${PROJECT_SOURCE_DIR}/src/semaphore.cc
-    ${PROJECT_SOURCE_DIR}/src/sandbox/sandbox.cc
-    ${PROJECT_SOURCE_DIR}/src/sandbox/limits.cc
+    ${PROJECT_SOURCE_DIR}/src/sandbox.cc
     ${PROJECT_SOURCE_DIR}/src/cgroup/subsys.cc
     ${PROJECT_SOURCE_DIR}/src/cgroup/unit.cc
     ${PROJECT_SOURCE_DIR}/src/limits/limits.cc
@@ -21,6 +20,7 @@ SET(SRC_LIST
     ${PROJECT_SOURCE_DIR}/src/limits/release.cc
     ${PROJECT_SOURCE_DIR}/src/limits/time.cc
     ${PROJECT_SOURCE_DIR}/src/limits/wait.cc
+    ${PROJECT_SOURCE_DIR}/src/limits/info.cc
     ${PROJECT_SOURCE_DIR}/src/utils/process.cc
     ${PROJECT_SOURCE_DIR}/src/utils/exceptions.cc
     ${PROJECT_SOURCE_DIR}/src/container-fs/abstruct/all.cc
