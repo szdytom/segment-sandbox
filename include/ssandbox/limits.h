@@ -16,7 +16,6 @@ public:
     void memory(unsigned long long limit);
     void time(unsigned limit);
     void cpu(unsigned int limit);
-    void network(bool limit);
     void release();
     void task(pid_t pid);
     void wait();
