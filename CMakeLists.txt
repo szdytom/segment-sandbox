@@ -21,6 +21,7 @@ SET(SRC_LIST
     ${PROJECT_SOURCE_DIR}/src/limits/time.cc
     ${PROJECT_SOURCE_DIR}/src/limits/wait.cc
     ${PROJECT_SOURCE_DIR}/src/limits/info.cc
+    ${PROJECT_SOURCE_DIR}/src/limits/pids.cc
     ${PROJECT_SOURCE_DIR}/src/utils/process.cc
     ${PROJECT_SOURCE_DIR}/src/utils/exceptions.cc
     ${PROJECT_SOURCE_DIR}/src/container-fs/abstruct/all.cc

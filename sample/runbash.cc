@@ -48,6 +48,7 @@ int main() {
     cfg->limit_config.set_cpu_limit(30);      // 30% on one core
     cfg->limit_config.set_time_limit(100000); // 100s (1min40s)
     cfg->limit_config.set_memory_limit(-1);   // unlimited
+    cfg->limit_config.set_fork_limit(3);      // at most fork 3 times (create 3 child process)
 
     printf("Outside\n");
     create_sandbox(cfg);

@@ -29,6 +29,9 @@ void ssandbox::limit_info_t::apply(pid_t container_pid) {
 
     if (this->_memory >= 0)
         this->_limiter->memory(this->_memory);
+    
+    if (this->_process >= 1) 
+        this->_limiter->process(this->_process);
 }
 
 void ssandbox::limit_info_t::wait() {
@@ -45,4 +48,8 @@ void ssandbox::limit_info_t::set_cpu_limit(unsigned int cpu) {
 
 void ssandbox::limit_info_t::set_memory_limit(unsigned long long memory) {
     this->_memory = memory;
+}
+
+void ssandbox::limit_info_t::set_fork_limit(unsigned int process) {
+    this->_process = process;
 }

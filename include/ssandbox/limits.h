@@ -16,6 +16,8 @@ public:
     void memory(unsigned long long limit);
     void time(unsigned limit);
     void cpu(unsigned int limit);
+    void process(unsigned int limit);
+    
     void release();
     void task(pid_t pid);
     void wait();
@@ -49,6 +51,7 @@ public:
     void set_time_limit(unsigned int time);
     void set_cpu_limit(unsigned int cpu);
     void set_memory_limit(unsigned long long memory);
+    void set_fork_limit(unsigned int process);
 
 private:
     std::string _uid;
@@ -57,6 +60,7 @@ private:
     unsigned int _cpu;
     unsigned int _time;
     unsigned long long _memory;
+    unsigned int _process;
 };
 
 }; // namespace ssandbox
