@@ -1,7 +1,7 @@
 #include <string>
 #include <fmt/core.h>
 #include "ssandbox/cgroup.h"
-#include "ssandbox/limits.h"
+#include "ssandbox/limits/resource.h"
 
 void ssandbox::limits_manager::memory(unsigned long long limit) {
     auto cs = ssandbox::cgroup_subsystem("memory");

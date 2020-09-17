@@ -5,7 +5,7 @@
 #include <fmt/core.h>
 #include <signal.h>
 #include "ssandbox/cgroup.h"
-#include "ssandbox/limits.h"
+#include "ssandbox/limits/resource.h"
 #include "ssandbox/utils/process.h"
 
 void ssandbox::limits_manager::_watch_time_limit() {

@@ -1,5 +1,5 @@
 #include <fmt/core.h>
-#include "ssandbox/limits.h"
+#include "ssandbox/limits/resource.h"
 #include "ssandbox/utils/exceptions.h"
 
 ssandbox::limit_info_t::limit_info_t() {

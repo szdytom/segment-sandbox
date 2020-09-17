@@ -10,7 +10,7 @@
 #include <memory>
 #include <string>
 #include "ssandbox/containerfs.h"
-#include "ssandbox/limits.h"
+#include "ssandbox/limits/resource.h"
 
 namespace ssandbox {
 

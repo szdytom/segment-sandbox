@@ -1,7 +1,7 @@
 #include <string>
 #include <fmt/core.h>
 #include "ssandbox/cgroup.h"
-#include "ssandbox/limits.h"
+#include "ssandbox/limits/resource.h"
 
 void ssandbox::limits_manager::process(unsigned int limit) {
     auto cs = ssandbox::cgroup_subsystem("pids");

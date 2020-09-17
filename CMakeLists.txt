@@ -40,7 +40,7 @@ SET(HEADER_LIST
     ${HEADER_INCLUDE_DIR}/containerfs.h 
     ${HEADER_INCLUDE_DIR}/userns.h 
     ${HEADER_INCLUDE_DIR}/cgroup.h 
-    ${HEADER_INCLUDE_DIR}/limits.h 
+    ${HEADER_INCLUDE_DIR}/limits/resource.h 
     ${HEADER_INCLUDE_DIR}/utils/process.h 
     ${HEADER_INCLUDE_DIR}/utils/exceptions.h 
 )

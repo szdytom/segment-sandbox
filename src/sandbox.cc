@@ -11,7 +11,7 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <unistd.h>
-#include "ssandbox/limits.h"
+#include "ssandbox/limits/resource.h"
 #include "ssandbox/semaphore.h"
 #include "ssandbox/userns.h"
 #include "ssandbox/utils/exceptions.h"

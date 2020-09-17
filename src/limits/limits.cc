@@ -1,4 +1,4 @@
-#include "ssandbox/limits.h"
+#include "ssandbox/limits/resource.h"
 #include <exception>
 #include <stdexcept>
 #include <string>

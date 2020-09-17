@@ -1,7 +1,7 @@
 #include <string>
 #include <fmt/core.h>
 #include "ssandbox/cgroup.h"
-#include "ssandbox/limits.h"
+#include "ssandbox/limits/resource.h"
 
 void ssandbox::limits_manager::wait() {
     if (this->_time_surveillant_mark)
