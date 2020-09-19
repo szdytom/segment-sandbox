@@ -9,12 +9,10 @@
 #include "ssandbox/global_config.h"
 
 void ssandbox::seccomp_rules::load() {
-    // TODO: fix memory leak
-
     auto global_cfg = ssandbox::global_config::get_instance();
-    auto seccomp_profile = (std::string*)global_cfg->get_field("seccomp_profile");
+    auto seccomp_profile = *(std::shared_ptr<std::string>*)global_cfg->get_field("seccomp_profile");
     if (seccomp_profile == nullptr) {
-        seccomp_profile = new std::string("/etc/ssandbox/seccomp_profile.list");
+        seccomp_profile = std::make_shared<std::string>("/etc/ssandbox/seccomp.list");
         global_cfg->set_feild("seccomp_profile", &seccomp_profile);
     }
 
