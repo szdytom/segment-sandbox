@@ -24,6 +24,7 @@ SET(SRC_LIST
     ${PROJECT_SOURCE_DIR}/src/limits/pids.cc
     ${PROJECT_SOURCE_DIR}/src/utils/process.cc
     ${PROJECT_SOURCE_DIR}/src/utils/exceptions.cc
+    ${PROJECT_SOURCE_DIR}/src/utils/listfile.cc
     ${PROJECT_SOURCE_DIR}/src/container-fs/abstruct/all.cc
     ${PROJECT_SOURCE_DIR}/src/container-fs/abstruct/config.cc
     ${PROJECT_SOURCE_DIR}/src/container-fs/abstruct/procfs.cc
@@ -31,19 +32,7 @@ SET(SRC_LIST
     ${PROJECT_SOURCE_DIR}/src/container-fs/overlayfs/mainfs.cc
 )
 
-SET(HEADER_INCLUDE_DIR include/ssandbox)
-
-SET(HEADER_LIST
-    ${HEADER_INCLUDE_DIR}/semaphore.h
-    ${HEADER_INCLUDE_DIR}/ssandbox.h 
-    ${HEADER_INCLUDE_DIR}/sandbox.h 
-    ${HEADER_INCLUDE_DIR}/containerfs.h 
-    ${HEADER_INCLUDE_DIR}/userns.h 
-    ${HEADER_INCLUDE_DIR}/cgroup.h 
-    ${HEADER_INCLUDE_DIR}/limits/resource.h 
-    ${HEADER_INCLUDE_DIR}/utils/process.h 
-    ${HEADER_INCLUDE_DIR}/utils/exceptions.h 
-)
+SET(HEADER_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/include/ssandbox)
 
 ADD_LIBRARY(ssandbox STATIC ${SRC_LIST})
 
@@ -52,4 +41,4 @@ INSTALL(TARGETS ssandbox
     PUBLIC_HEADER DESTINATION include
 )
 
-INSTALL(FILES ${HEADER_LIST} DESTINATION include/ssandbox)
+INSTALL(CODE "EXECUTE_PROCESS(COMMAND cp -r ${HEADER_INCLUDE_DIR} ${CMAKE_INSTALL_PREFIX}/include)")
