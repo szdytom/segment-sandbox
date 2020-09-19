@@ -11,7 +11,7 @@ const char* container_args[] = {
     NULL};
 
 int func(void* args) {
-    printf("Inside countainer [%05d]!\n", getpid());
+    printf("Inside container [%05d]!\n", getpid());
 
     char** xargs = (char**)args;
     printf("+%s\n", xargs[0]);
