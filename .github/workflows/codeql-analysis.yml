@@ -65,6 +65,10 @@ jobs:
         make -j4
         sudo make install
         cd ../..
+    
+    - name: install other requirements
+      run: |
+        sudo apt install libseccomp
 
     - name: build
       run: |
