@@ -1,0 +1,58 @@
+# This file is the default profile of seccomp limits.
+# This is a blacklist for system calls.
+
+acct # Accounting syscall which could let containers disable their own resource limits or process accounting
+add_key # Prevent containers from using the kernel keyring, which is not namespaced.
+bpf # Deny loading potentially persistent bpf programs into kernel
+clock_adjtime # Time/date is not namespaced.
+clock_settime # Time/date is not namespaced.
+clone # Deny cloning new namespaces.
+create_module # Deny manipulation and functions on kernel modules. Obsolete.
+delete_module # Deny manipulation and functions on kernel modules.
+finit_module # Deny manipulation and functions on kernel modules.
+get_kernel_syms # Deny retrieval of exported kernel and module symbols. Obsolete.
+get_mempolicy # Syscall that modifies kernel memory and NUMA settings.
+init_module # Deny manipulation and functions on kernel modules.
+ioperm # Prevent containers from modifying kernel I/O privilege levels.
+iopl # Prevent containers from modifying kernel I/O privilege levels.
+kcmp # Restrict process inspection capabilities
+kexec_file_load # Sister syscall of kexec_load that does the same thing, slightly different arguments.
+kexec_load # Deny loading a new kernel for later execution.
+keyctl # Prevent containers from using the kernel keyring, which is not namespaced.
+lookup_dcookie # Tracing/profiling syscall, which could leak a lot of information on the host.
+mbind # Syscall that modifies kernel memory and NUMA settings.
+
+# We need to mount fs inside container at the moment
+# This should be endabled in the future.
+#mount # Deny mounting.
+
+move_pages # Syscall that modifies kernel memory and NUMA settings.
+name_to_handle_at # Cause of an old container breakout.
+nfsservctl # Deny interaction with the kernel nfs daemon. Obsolete since Linux 3.1.
+open_by_handle_at # Cause of an old container breakout.
+perf_event_open # Tracing/profiling syscall, which could leak a lot of information on the host.
+personality # Prevent container from enabling BSD emulation. Not inherently dangerous, but poorly tested, potential for a lot of kernel vulns.
+pivot_root # Deny pivot_root, should be privileged operation.
+process_vm_readv # Restrict process inspection capabilities.
+process_vm_writev # Restrict process inspection capabilities.
+ptrace # Tracing/profiling syscall. Blocked in Linux kernel versions before 4.8 to avoid seccomp bypass. it could leak a lot of information on the host.
+query_module # Deny manipulation and functions on kernel modules. Obsolete.
+quotactl # Quota syscall which could let containers disable their own resource limits or process accounting.
+reboot # Don’t let containers reboot the host.
+request_key # Prevent containers from using the kernel keyring, which is not namespaced.
+set_mempolicy # Syscall that modifies kernel memory and NUMA settings.
+setns # Deny associating a thread with a namespace.
+settimeofday # Time/date is not namespaced.
+stime # Time/date is not namespaced.
+swapon # Deny start/stop swapping to file/device.
+swapoff # Deny start/stop swapping to file/device.
+sysfs # Obsolete syscall.
+_sysctl # Obsolete, replaced by /proc/sys.
+umount # Should be a privileged operation.
+umount2 # Should be a privileged operation.
+unshare # Deny cloning new namespaces for processes.
+uselib # Older syscall related to shared libraries, unused for a long time.
+userfaultfd # Userspace page fault handling, largely needed for process migration.
+ustat # Obsolete syscall.
+vm86 # In kernel x86 real mode virtual machine.
+vm86old # In kernel x86 real mode virtual machine.
