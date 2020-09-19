@@ -12,6 +12,7 @@ SET(SRC_LIST
     ${PROJECT_SOURCE_DIR}/src/userns.cc
     ${PROJECT_SOURCE_DIR}/src/semaphore.cc
     ${PROJECT_SOURCE_DIR}/src/sandbox.cc
+    ${PROJECT_SOURCE_DIR}/src/global_config.cc
     ${PROJECT_SOURCE_DIR}/src/cgroup/subsys.cc
     ${PROJECT_SOURCE_DIR}/src/cgroup/unit.cc
     ${PROJECT_SOURCE_DIR}/src/limits/resources/limits.cc
@@ -22,6 +23,10 @@ SET(SRC_LIST
     ${PROJECT_SOURCE_DIR}/src/limits/resources/wait.cc
     ${PROJECT_SOURCE_DIR}/src/limits/resources/info.cc
     ${PROJECT_SOURCE_DIR}/src/limits/resources/pids.cc
+    ${PROJECT_SOURCE_DIR}/src/limits/syscall/apply.cc
+    ${PROJECT_SOURCE_DIR}/src/limits/syscall/load.cc
+    ${PROJECT_SOURCE_DIR}/src/limits/syscall/make.cc
+    ${PROJECT_SOURCE_DIR}/src/limits/syscall/rule.cc
     ${PROJECT_SOURCE_DIR}/src/utils/process.cc
     ${PROJECT_SOURCE_DIR}/src/utils/exceptions.cc
     ${PROJECT_SOURCE_DIR}/src/utils/listfile.cc
