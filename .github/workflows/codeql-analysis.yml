@@ -69,7 +69,7 @@ jobs:
     - name: install other requirements
       run: |
         sudo apt update
-        sudo apt install libseccomp
+        sudo apt install libseccomp-dev
 
     - name: build
       run: |
