@@ -42,7 +42,7 @@ void ssandbox::limit_info_t::apply(pid_t container_pid) {
 
 void ssandbox::limit_info_t::wait() {
     if (!this->_limits_applied)
-        throw std::logic_error(ssandbox::exceptions::get_formated_ssandbox_errormsg("You must apply limits before wait for response", __FUNCTION__));
+        throw std::logic_error(ssandbox::exceptions::error_msg("You must apply limits before wait for response", __FUNCTION__));
 
     this->_limiter->wait();
 }
@@ -69,5 +69,5 @@ void ssandbox::limit_info_t::set_fork_limit(unsigned int process) {
 
 void ssandbox::limit_info_t::_not_applied_required(std::string function_name) {
     if (this->_limits_applied)
-        throw std::logic_error(ssandbox::exceptions::get_formated_ssandbox_errormsg("You cannot change settings after it is applied", function_name));
+        throw std::logic_error(ssandbox::exceptions::error_msg("You cannot change settings after it is applied", function_name));
 }

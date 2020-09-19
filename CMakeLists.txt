@@ -14,14 +14,14 @@ SET(SRC_LIST
     ${PROJECT_SOURCE_DIR}/src/sandbox.cc
     ${PROJECT_SOURCE_DIR}/src/cgroup/subsys.cc
     ${PROJECT_SOURCE_DIR}/src/cgroup/unit.cc
-    ${PROJECT_SOURCE_DIR}/src/limits/limits.cc
-    ${PROJECT_SOURCE_DIR}/src/limits/memory.cc
-    ${PROJECT_SOURCE_DIR}/src/limits/cpu.cc
-    ${PROJECT_SOURCE_DIR}/src/limits/release.cc
-    ${PROJECT_SOURCE_DIR}/src/limits/time.cc
-    ${PROJECT_SOURCE_DIR}/src/limits/wait.cc
-    ${PROJECT_SOURCE_DIR}/src/limits/info.cc
-    ${PROJECT_SOURCE_DIR}/src/limits/pids.cc
+    ${PROJECT_SOURCE_DIR}/src/limits/resources/limits.cc
+    ${PROJECT_SOURCE_DIR}/src/limits/resources/memory.cc
+    ${PROJECT_SOURCE_DIR}/src/limits/resources/cpu.cc
+    ${PROJECT_SOURCE_DIR}/src/limits/resources/release.cc
+    ${PROJECT_SOURCE_DIR}/src/limits/resources/time.cc
+    ${PROJECT_SOURCE_DIR}/src/limits/resources/wait.cc
+    ${PROJECT_SOURCE_DIR}/src/limits/resources/info.cc
+    ${PROJECT_SOURCE_DIR}/src/limits/resources/pids.cc
     ${PROJECT_SOURCE_DIR}/src/utils/process.cc
     ${PROJECT_SOURCE_DIR}/src/utils/exceptions.cc
     ${PROJECT_SOURCE_DIR}/src/utils/listfile.cc
