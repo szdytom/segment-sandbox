@@ -25,7 +25,7 @@ SET(SRC_LIST
     ${PROJECT_SOURCE_DIR}/src/limits/syscall/apply.cc
     ${PROJECT_SOURCE_DIR}/src/limits/syscall/load.cc
     ${PROJECT_SOURCE_DIR}/src/limits/syscall/make.cc
-    ${PROJECT_SOURCE_DIR}/src/limits/syscall/rule.cc
+    ${PROJECT_SOURCE_DIR}/src/limits/syscall/native.cc
     ${PROJECT_SOURCE_DIR}/src/utils/process.cc
     ${PROJECT_SOURCE_DIR}/src/utils/exceptions.cc
     ${PROJECT_SOURCE_DIR}/src/utils/listfile.cc
