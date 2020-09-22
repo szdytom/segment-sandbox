@@ -6,17 +6,9 @@
 #include "ssandbox/limits/syscall.h"
 #include "ssandbox/utils/exceptions.h"
 #include "ssandbox/utils/listfile.h"
-#include "ssandbox/global_config.h"
 
-void ssandbox::seccomp_rules::load() {
-    auto global_cfg = ssandbox::global_config::get_instance();
-    auto seccomp_profile = *(std::shared_ptr<std::string>*)global_cfg->get_field("seccomp_profile");
-    if (seccomp_profile == nullptr) {
-        seccomp_profile = std::make_shared<std::string>("/etc/ssandbox/seccomp.list");
-        global_cfg->set_feild("seccomp_profile", &seccomp_profile);
-    }
-
-    ssandbox::io::list_file_reader profile(seccomp_profile->c_str());
+void ssandbox::seccomp_rules::load(std::filesystem::path profile_path) {
+    ssandbox::io::list_file_reader profile(profile_path.string());
     auto profile_content = profile.read();
 
     this->_syscall_limit_table.clear();

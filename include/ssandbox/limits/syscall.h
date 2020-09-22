@@ -1,5 +1,6 @@
 // -*- C++ -*- Part of the Segment Sandbox Project
 
+#include <filesystem>
 #include <string>
 #include <fmt/core.h>
 #include <seccomp.h>
@@ -12,7 +13,7 @@ namespace ssandbox {
 
 class seccomp_rules {
 public:
-    void load();
+    void load(std::filesystem::path profile_path="/etc/ssandbox/seccomp.list");
     scmp_filter_ctx get();
 
     static seccomp_rules* get_instance();

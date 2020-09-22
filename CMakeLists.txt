@@ -12,7 +12,6 @@ SET(SRC_LIST
     ${PROJECT_SOURCE_DIR}/src/userns.cc
     ${PROJECT_SOURCE_DIR}/src/semaphore.cc
     ${PROJECT_SOURCE_DIR}/src/sandbox.cc
-    ${PROJECT_SOURCE_DIR}/src/global_config.cc
     ${PROJECT_SOURCE_DIR}/src/cgroup/subsys.cc
     ${PROJECT_SOURCE_DIR}/src/cgroup/unit.cc
     ${PROJECT_SOURCE_DIR}/src/limits/resources/limits.cc
@@ -43,7 +42,6 @@ ADD_LIBRARY(ssandbox STATIC ${SRC_LIST})
 
 INSTALL(TARGETS ssandbox
     ARCHIVE DESTINATION lib
-    PUBLIC_HEADER DESTINATION include
 )
 
 INSTALL(CODE "EXECUTE_PROCESS(COMMAND cp -rv ${HEADER_INCLUDE_DIR} ${CMAKE_INSTALL_PREFIX}/include)")
