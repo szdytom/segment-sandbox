@@ -14,6 +14,7 @@
 #include "ssandbox/limits/resource.h"
 #include "ssandbox/semaphore.h"
 #include "ssandbox/userns.h"
+#include "ssandbox/limits/syscall.h"
 #include "ssandbox/utils/exceptions.h"
 
 struct sandbox_prepar_info {
@@ -29,14 +30,15 @@ struct sandbox_prepar_info {
  * Config settings inside container.
  * 1. Set Host Name
  * 2. Mount Filesystem
+ * 3. Set System Call Limits (seccomp)
  */
 int entry_handle(void* cfg_ptr) {
     auto prepar_cfg = (sandbox_prepar_info*)(cfg_ptr);
     auto cfg = prepar_cfg->cfg;
 
     sethostname(cfg->hostname.c_str(), cfg->hostname.size());
-
     cfg->fs->mount_all();
+    ssandbox::apply_seccomp_limits();
 
     /* Now it is prepared to run costum function, but we need to wait for the semaphore first */
     prepar_cfg->semaphore->wait();

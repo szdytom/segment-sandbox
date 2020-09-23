@@ -30,6 +30,9 @@ int func(void* args) {
 }
 
 int main() {
+    // load seccomp limit profile
+    ssandbox::seccomp_rules::get_instance()->load();
+
     shared_ptr<sandbox_t> cfg(new sandbox_t);
     cfg->function = func;
     cfg->func_args = container_args;
