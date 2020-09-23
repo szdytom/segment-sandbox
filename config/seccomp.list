@@ -21,11 +21,7 @@ kexec_load # Deny loading a new kernel for later execution.
 keyctl # Prevent containers from using the kernel keyring, which is not namespaced.
 lookup_dcookie # Tracing/profiling syscall, which could leak a lot of information on the host.
 mbind # Syscall that modifies kernel memory and NUMA settings.
-
-# We need to mount fs inside container at the moment
-# This should be endabled in the future.
-#mount # Deny mounting.
-
+mount # Deny mounting.
 move_pages # Syscall that modifies kernel memory and NUMA settings.
 name_to_handle_at # Cause of an old container breakout.
 nfsservctl # Deny interaction with the kernel nfs daemon. Obsolete since Linux 3.1.
