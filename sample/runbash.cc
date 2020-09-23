@@ -16,14 +16,8 @@ int func(void* args) {
     char** xargs = (char**)args;
     printf("+%s\n", xargs[0]);
 
-    int child = vfork();
-    if (child == 0) {
-        printf("Inside fork [%05d]!\n", getpid());
-        execv(xargs[0], xargs);
-    } else {
-        printf("Father! child: %d\n", child);
-        waitpid(child, nullptr, 0);
-    }
+    printf("Inside fork [%05d]!\n", getpid());
+    execv(xargs[0], xargs);
 
     printf("exiting\n");
     return 0;
