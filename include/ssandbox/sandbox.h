@@ -11,6 +11,7 @@
 #include <string>
 #include "ssandbox/containerfs.h"
 #include "ssandbox/limits/resource.h"
+#include "ssandbox/semaphore.h"
 
 namespace ssandbox {
 
@@ -27,7 +28,31 @@ struct sandbox_t {
     bool enable_network;       /* Clone new network namespace or not */
 };
 
-void create_sandbox(std::shared_ptr<sandbox_t> cfg);
+struct run_result_t {
+    std::chrono::milliseconds time;
+    int exit_status;
+};
+
+struct _sandbox_prepar_info {
+    ssandbox::sandbox_t* cfg;
+    ssandbox::semaphore* semaphore;
+    std::chrono::steady_clock::time_point start_time;
+};
+
+class container {
+public:
+    sandbox_t* cfg;
+    void start();
+    ssandbox::run_result_t wait();
+    void stop();
+
+private:
+    pid_t _container_pid;
+    _sandbox_prepar_info* prepar_config;
+    std::unique_ptr<char[]> container_stack;
+
+    void _clear();
+};
 
 } // namespace ssandbox
 

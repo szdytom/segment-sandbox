@@ -27,7 +27,7 @@ int main() {
     // load seccomp limit profile
     ssandbox::seccomp_rules::get_instance()->load();
 
-    shared_ptr<sandbox_t> cfg(new sandbox_t);
+    auto cfg = new sandbox_t;
     cfg->function = func;
     cfg->func_args = container_args;
     cfg->stack_size = 5 * 1024 * 1024; // 5MB
@@ -48,7 +48,11 @@ int main() {
     cfg->limit_config.set_fork_limit(3);      // at most fork 3 times (create 3 child process)
 
     printf("Outside\n");
-    create_sandbox(cfg);
+    ssandbox::container c;
+    c.cfg = cfg;
+    c.start();
+    auto res = c.wait();
+    printf("Time: %ld\n", res.time.count());
     printf("Returned to father!\n");
 
     delete container_fs;
