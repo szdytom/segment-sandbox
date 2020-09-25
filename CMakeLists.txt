@@ -22,6 +22,7 @@ SET(SRC_LIST
     ${PROJECT_SOURCE_DIR}/src/limits/resources/wait.cc
     ${PROJECT_SOURCE_DIR}/src/limits/resources/info.cc
     ${PROJECT_SOURCE_DIR}/src/limits/resources/pids.cc
+    ${PROJECT_SOURCE_DIR}/src/limits/resources/freeze.cc
     ${PROJECT_SOURCE_DIR}/src/limits/syscall/apply.cc
     ${PROJECT_SOURCE_DIR}/src/limits/syscall/load.cc
     ${PROJECT_SOURCE_DIR}/src/limits/syscall/make.cc
