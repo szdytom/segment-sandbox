@@ -46,25 +46,28 @@ int entry_handle(void* cfg_ptr) {
 void ssandbox::container::start() {
     /* create stack space for child to use */
     /* new will throw out a alloc_error if fail, so we don't need to handle nullptr */
-    this->container_stack.reset(new char[cfg->stack_size]);
-    char* container_stack_ptr = container_stack.get();
+    this->_container_stack.reset(new char[cfg->stack_size]);
+    char* container_stack_ptr = _container_stack.get();
 
-    /* Set UID at different classes */
-    cfg->fs->set_uid(cfg->uid);
-    cfg->limit_config.set_uid(cfg->uid);
+    /* Set UID in different classes */
+    this->cfg->fs->set_uid(this->cfg->uid);
 
-    this->prepar_config = new ssandbox::_sandbox_prepar_info;
-    this->prepar_config->cfg = cfg;
-    this->prepar_config->semaphore = new ssandbox::semaphore;
+    /* prepar resource limiter */
+    this->_limiter = new ssandbox::limits_manager;
+    this->cfg->limit_config.set_up(this->cfg->uid, this->_limiter);
+
+    this->_prepar_config = new ssandbox::_sandbox_prepar_info;
+    this->_prepar_config->cfg = this->cfg;
+    this->_prepar_config->semaphore = new ssandbox::semaphore;
 
     int clone_flags = SIGCHLD | CLONE_VM | CLONE_NEWUTS | CLONE_NEWIPC | CLONE_NEWPID | CLONE_NEWNS;
-    if (!cfg->enable_network)
+    if (!this->cfg->enable_network)
         clone_flags |= CLONE_NEWNET;
 
     this->_container_pid = clone((ssandbox::container_func_t)entry_handle,
                                  container_stack_ptr + cfg->stack_size, /* reverse memory */
                                  clone_flags,
-                                 (void*)prepar_config);
+                                 (void*)_prepar_config);
 
     if (this->_container_pid == -1)
         /* clone process failed */
@@ -76,10 +79,10 @@ void ssandbox::container::start() {
     user_ns_mgr->set_gid_map(this->_container_pid, 0, getgid(), 1);
 
     /* set limits */
-    cfg->limit_config.apply(this->_container_pid);
+    this->cfg->limit_config.apply(this->_container_pid);
 
     /* send semaphore */
-    prepar_config->semaphore->post(0);
+    _prepar_config->semaphore->post(0);
 }
 
 ssandbox::run_result_t ssandbox::container::wait() {
@@ -91,7 +94,7 @@ ssandbox::run_result_t ssandbox::container::wait() {
 
     /* get resource usages */
     ssandbox::run_result_t res;
-    res.time = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() - this->prepar_config->start_time);
+    res.time = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() - this->_prepar_config->start_time);
     res.exit_status = sstatus;
 
     /* clear others up */
@@ -107,14 +110,22 @@ void ssandbox::container::stop() {
 }
 
 void ssandbox::container::_clear() {
-    cfg->limit_config.wait();
+    this->cfg->limit_config.wait();
 
     /* clear mounted fs */
-    cfg->fs->umount_all();
+    this->cfg->fs->umount_all();
 
-    delete this->prepar_config->semaphore;
-    delete this->prepar_config;
+    delete this->_prepar_config->semaphore;
+    delete this->_prepar_config;
 
     /* free memory inside unique_ptr */
-    this->container_stack.reset(nullptr);
+    this->_container_stack.reset(nullptr);
+}
+
+void ssandbox::container::freeze() {
+    this->_limiter->freeze();
+}
+
+void ssandbox::container::thaw() {
+    this->_limiter->freeze(false);
 }

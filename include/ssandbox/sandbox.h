@@ -41,17 +41,23 @@ struct _sandbox_prepar_info {
 
 class container {
 public:
-    sandbox_t* cfg;
     void start();
     ssandbox::run_result_t wait();
     void stop();
 
+    void freeze();
+    void thaw();
+
 private:
     pid_t _container_pid;
-    _sandbox_prepar_info* prepar_config;
-    std::unique_ptr<char[]> container_stack;
+    _sandbox_prepar_info* _prepar_config;
+    limits_manager* _limiter;
+    std::unique_ptr<char[]> _container_stack;
 
     void _clear();
+
+public:
+    sandbox_t* cfg;
 };
 
 } // namespace ssandbox

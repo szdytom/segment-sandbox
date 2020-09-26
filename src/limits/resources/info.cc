@@ -3,8 +3,6 @@
 #include "ssandbox/utils/exceptions.h"
 
 ssandbox::limit_info_t::limit_info_t() {
-    this->_limiter = new limits_manager;
-
     this->_cpu = -1;
     this->_memory = -1;
     this->_time = -1;
@@ -18,8 +16,9 @@ ssandbox::limit_info_t::~limit_info_t() {
     delete this->_limiter;
 }
 
-void ssandbox::limit_info_t::set_uid(std::string uid) {
+void ssandbox::limit_info_t::set_up(std::string uid, ssandbox::limits_manager* mgr) {
     this->_uid = uid;
+    this->_limiter = mgr;
     this->_limiter->set_uid(this->_uid);
 }
 

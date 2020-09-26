@@ -19,6 +19,8 @@ public:
     std::string get(std::string file);
     void remove();
 
+    std::string get_subsys_type();
+
 private:
     std::string _subsys_type;
     std::string _unit_name;

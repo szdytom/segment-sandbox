@@ -45,7 +45,7 @@ public:
     limit_info_t();
     ~limit_info_t();
 
-    void set_uid(std::string uid);
+    void set_up(std::string uid, ssandbox::limits_manager* mgr);
     void apply(pid_t container_pid);
     void wait();
 

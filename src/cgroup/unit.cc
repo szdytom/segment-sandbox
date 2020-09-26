@@ -61,3 +61,7 @@ std::string ssandbox::cgroup_unit::get(std::string file) {
 void ssandbox::cgroup_unit::remove() {
     std::filesystem::remove(this->_unit_path);
 }
+
+std::string ssandbox::cgroup_unit::get_subsys_type() {
+    return this->_subsys_type;
+}
