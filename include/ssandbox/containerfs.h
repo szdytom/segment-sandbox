@@ -23,11 +23,11 @@ public:
 protected:
     std::filesystem::path get_fs_path(const std::filesystem::path& name);
 
-    virtual void mount_main() {};
-    virtual void umount_main() {};
+    virtual void mount_main(){};
+    virtual void umount_main(){};
 
-    virtual void mount_extra() {};
-    virtual void umount_extra() {};
+    virtual void mount_extra(){};
+    virtual void umount_extra(){};
 
     std::string uid;
     std::filesystem::path workspace;
@@ -47,6 +47,12 @@ private:
 };
 
 class OverlayContainerFS : public AbstructContainerFS {
+protected:
+    void mount_main();
+    void umount_main();
+};
+
+class readonly_container_fs : public AbstructContainerFS {
 protected:
     void mount_main();
     void umount_main();

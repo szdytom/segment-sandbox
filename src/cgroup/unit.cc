@@ -29,7 +29,7 @@ void ssandbox::cgroup_unit::write(std::string file, std::string value) {
     FILE* f = std::fopen(file_path.c_str(), "w");
 
     if (f == nullptr)
-        throw ssandbox::exceptions::syscall_error(errno, fmt::format("Cannot open cgroup file '{}'"), __FUNCTION__);
+        throw ssandbox::exceptions::syscall_error(errno, fmt::format("Cannot open cgroup file '{}'", file), __FUNCTION__);
 
     fmt::print(f, "{}", value);
     fclose(f);

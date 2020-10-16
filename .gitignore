@@ -41,3 +41,4 @@ temp/
 # CMake
 build/
 dist/
+sample/sandboxes

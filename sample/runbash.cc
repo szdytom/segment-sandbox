@@ -32,14 +32,14 @@ int main() {
     cfg->func_args = container_args;
     cfg->stack_size = 5 * 1024 * 1024; // 5MB
     cfg->hostname = "container";
-    cfg->uid = "test";
+    cfg->uid = "runbash";
     cfg->enable_network = false;
 
-    auto container_fs = new OverlayContainerFS();
+    auto container_fs = new readonly_container_fs();
     container_fs->enable_proc();
     container_fs->enable_tmp();
-    container_fs->set_image("/mnt/image");
-    container_fs->set_workspace("/mnt/ssandbox");
+    container_fs->set_image("sandboxes/image");
+    container_fs->set_workspace("sandboxes/workspace");
     cfg->fs = container_fs;
 
     cfg->limit_config.set_cpu_limit(30);      // 30% on one core
