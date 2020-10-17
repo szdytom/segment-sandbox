@@ -7,7 +7,7 @@ using namespace std;
 using namespace ssandbox;
 
 const char* container_args[] = {
-    "/bin/bash",
+    "/bin/sh",
     NULL};
 
 int func(void* args) {
@@ -16,8 +16,9 @@ int func(void* args) {
     char** xargs = (char**)args;
     printf("+%s\n", xargs[0]);
 
-    printf("Inside fork [%05d]!\n", getpid());
-    execv(xargs[0], xargs);
+    if (execv(xargs[0], xargs)) {
+        printf("ERR: [%d] %s\n", errno, strerror(errno));
+    }
 
     printf("exiting\n");
     return 0;
@@ -38,8 +39,8 @@ int main() {
     auto container_fs = new readonly_container_fs();
     container_fs->enable_proc();
     container_fs->enable_tmp();
-    container_fs->set_image("sandboxes/image");
-    container_fs->set_workspace("sandboxes/workspace");
+    container_fs->set_image("/mnt/sandboxes/image");
+    container_fs->set_workspace("/mnt/sandboxes/workspace");
     cfg->fs = container_fs;
 
     cfg->limit_config.set_cpu_limit(30);      // 30% on one core

@@ -5,7 +5,12 @@
 #include "ssandbox/utils/exceptions.h"
 
 void ssandbox::readonly_container_fs::mount_main() {
-    int res = mount(this->image_path.c_str(), this->get_fs_path("target").c_str(), nullptr, MS_BIND | MS_RDONLY, nullptr);
-    if (res)
-        throw ssandbox::exceptions::syscall_error(errno, fmt::format("Cannot mount readonly bind of {} with return code {}", this->image_path.string(), res), __FUNCTION__);
+    if (mount(this->image_path.c_str(), this->get_fs_path("target").c_str(), "", MS_BIND, ""))
+        throw ssandbox::exceptions::syscall_error(
+            errno, fmt::format("Cannot bind mainfs from '{}'", this->image_path.string()), __FUNCTION__);
+
+    if (mount("", this->get_fs_path("target").c_str(), "", MS_BIND | MS_REMOUNT | MS_RDONLY | MS_NOATIME,
+              ""))
+        throw ssandbox::exceptions::syscall_error(
+            errno, fmt::format("Cannot remount mainfs", this->image_path.string()), __FUNCTION__);
 }
