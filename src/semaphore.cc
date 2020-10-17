@@ -18,16 +18,16 @@ void ssandbox::semaphore::post(int val) {
 
 void ssandbox::semaphore::wait() {
     while (!this->_mark) {
-        std::this_thread::sleep_for(std::chrono::microseconds(ssandbox::semaphore::_time));
+        std::this_thread::sleep_for(std::chrono::milliseconds(ssandbox::semaphore::_time));
     }
 }
 
 bool ssandbox::semaphore::wait_for(unsigned int time_limit) {
     auto start_time = std::chrono::steady_clock::now();
-    auto time_lim = std::chrono::microseconds(time_limit);
+    auto time_lim = std::chrono::milliseconds(time_limit);
 
     while (!this->_mark) {
-        std::this_thread::sleep_for(std::chrono::microseconds(ssandbox::semaphore::_time));
+        std::this_thread::sleep_for(std::chrono::milliseconds(ssandbox::semaphore::_time));
 
         auto delta = std::chrono::steady_clock::now() - start_time;
         if (delta > time_lim)
