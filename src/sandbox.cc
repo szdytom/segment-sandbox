@@ -82,7 +82,7 @@ void ssandbox::container::start() {
     this->cfg->limit_config.apply(this->_container_pid);
 
     /* send semaphore */
-    _prepar_config->semaphore->post(0);
+    this->_prepar_config->semaphore->post(0);
 }
 
 ssandbox::run_result_t ssandbox::container::wait() {
