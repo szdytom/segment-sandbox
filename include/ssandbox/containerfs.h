@@ -45,12 +45,12 @@ private:
 
 class OverlayContainerFS : public abstruct_container_fs {
 protected:
-    void mount_main() override;
+    void mount_main() override final;
 };
 
 class readonly_container_fs : public abstruct_container_fs {
 protected:
-    void mount_main() override;
+    void mount_main() override final;
 };
 
 } /* namespace ssandbox */
