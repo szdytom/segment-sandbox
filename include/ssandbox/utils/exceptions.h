@@ -15,7 +15,7 @@ std::string error_msg(std::string message, std::string function);
 
 class syscall_error : public std::exception {
 public:
-    syscall_error(int errorno, std::string message, std::string function);
+    syscall_error(int errorno, const std::string& message, const std::string& function);
     ~syscall_error();
 
     const char* what() const throw();

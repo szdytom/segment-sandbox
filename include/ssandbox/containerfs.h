@@ -21,7 +21,7 @@ public:
     void set_image(const std::filesystem::path& image_path);
 
 protected:
-    std::filesystem::path get_fs_path(const std::filesystem::path& name);
+    std::filesystem::path get_fs_path(const std::filesystem::path& name) const;
 
     virtual void mount_main(){};
     virtual void umount_main(){};
@@ -33,7 +33,11 @@ protected:
     std::filesystem::path workspace;
     std::filesystem::path image_path;
 
+    AbstructContainerFS();
+    ~AbstructContainerFS();
+    
 private:
+
     void _mount_tmp();
     void _mount_proc();
 
@@ -48,14 +52,14 @@ private:
 
 class OverlayContainerFS : public AbstructContainerFS {
 protected:
-    void mount_main();
-    void umount_main();
+    void mount_main() override;
+    void umount_main() override;
 };
 
 class readonly_container_fs : public AbstructContainerFS {
 protected:
-    void mount_main();
-    void umount_main();
+    void mount_main() override;
+    void umount_main() override;
 };
 
 } /* namespace ssandbox */

@@ -1,3 +1,4 @@
+#include <fmt/core.h>
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <unistd.h>
@@ -12,5 +13,6 @@ void ssandbox::AbstructContainerFS::_mount_tmp() {
 void ssandbox::AbstructContainerFS::_umount_tmp() {
     std::string tmppath((this->get_fs_path("target") / "tmp").string());
     if (umount2(tmppath.c_str(), MNT_FORCE))
-        throw ssandbox::exceptions::syscall_error(errno, "Cannot umount fs of tmpfs", __FUNCTION__);
+        throw ssandbox::exceptions::syscall_error(errno, fmt::format("Cannot umount fs of tmpfs at '{}'", tmppath),
+                                                  __FUNCTION__);
 }

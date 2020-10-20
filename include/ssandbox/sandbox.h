@@ -7,6 +7,7 @@
 #define _GNU_SOURCE
 #endif /* _GNU_SOURCE */
 
+#include <functional>
 #include <memory>
 #include <string>
 #include "ssandbox/containerfs.h"
@@ -15,17 +16,14 @@
 
 namespace ssandbox {
 
-typedef int (*container_func_t)(void* arg);
-
 struct sandbox_t {
-    std::string uid;           /* an unique ID for this sandbox */
-    int stack_size;            /* stack size of new program, in bytes */
-    container_func_t function; /* function to run inside sandbox */
-    void* func_args;           /* fnuction's args */
-    std::string hostname;      /* hostname inside container */
-    AbstructContainerFS* fs;   /* handler filesystem in container */
-    limit_info_t limit_config; /* Resource Limit Config */
-    bool enable_network;       /* Clone new network namespace or not */
+    std::string uid;                         /* an unique ID for this sandbox */
+    int stack_size;                          /* stack size of new program, in bytes */
+    std::function<int(void)> func;           /* function to run inside sandbox */
+    std::string hostname;                    /* hostname inside container */
+    std::shared_ptr<AbstructContainerFS> fs; /* handler filesystem in container */
+    limit_info_t limit_config;               /* Resource Limit Config */
+    bool enable_network;                     /* Clone new network namespace or not */
 };
 
 struct run_result_t {
@@ -34,15 +32,15 @@ struct run_result_t {
 };
 
 struct _sandbox_prepar_info {
-    ssandbox::sandbox_t* cfg;
-    ssandbox::semaphore* semaphore;
+    std::shared_ptr<sandbox_t> cfg;
+    std::shared_ptr<ssandbox::semaphore> lock;
     std::chrono::steady_clock::time_point start_time;
 };
 
 class container {
 public:
     void start();
-    ssandbox::run_result_t wait();
+    run_result_t wait();
     void stop();
 
     void freeze();
@@ -50,14 +48,14 @@ public:
 
 private:
     pid_t _container_pid;
-    _sandbox_prepar_info* _prepar_config;
-    limits_manager* _limiter;
+    std::shared_ptr<_sandbox_prepar_info> _prepar_config;
+    std::shared_ptr<limits_manager> _limiter;
     std::unique_ptr<char[]> _container_stack;
 
     void _clear();
 
 public:
-    sandbox_t* cfg;
+    std::shared_ptr<sandbox_t> cfg;
 };
 
 } // namespace ssandbox

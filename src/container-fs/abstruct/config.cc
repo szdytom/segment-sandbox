@@ -28,7 +28,7 @@ void ssandbox::AbstructContainerFS::set_image(const std::filesystem::path& image
     this->image_path = image_path;
 }
 
-std::filesystem::path ssandbox::AbstructContainerFS::get_fs_path(const std::filesystem::path& name) {
+std::filesystem::path ssandbox::AbstructContainerFS::get_fs_path(const std::filesystem::path& name) const {
     std::filesystem::path res = this->workspace / this->uid / name;
     if (!std::filesystem::exists(res))
         std::filesystem::create_directories(res);

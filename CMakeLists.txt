@@ -30,6 +30,7 @@ SET(SRC_LIST
     ${PROJECT_SOURCE_DIR}/src/utils/process.cc
     ${PROJECT_SOURCE_DIR}/src/utils/exceptions.cc
     ${PROJECT_SOURCE_DIR}/src/utils/listfile.cc
+    ${PROJECT_SOURCE_DIR}/src/container-fs/abstruct/native.cc
     ${PROJECT_SOURCE_DIR}/src/container-fs/abstruct/all.cc
     ${PROJECT_SOURCE_DIR}/src/container-fs/abstruct/config.cc
     ${PROJECT_SOURCE_DIR}/src/container-fs/abstruct/procfs.cc

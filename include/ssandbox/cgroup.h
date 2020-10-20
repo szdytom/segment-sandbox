@@ -12,14 +12,14 @@ const std::filesystem::path cgroup_base("/sys/fs/cgroup/");
 
 class cgroup_unit {
 public:
-    cgroup_unit(std::string subsys_type, std::string unit_name);
+    cgroup_unit(const std::string& subsys_type, const std::string& unit_name);
     ~cgroup_unit();
 
-    void write(std::string file, std::string value);
-    std::string get(std::string file);
-    void remove();
+    void write(const std::string& file, const std::string& value) const;
+    std::string get(const std::string& file) const;
+    void remove() const;
 
-    std::string get_subsys_type();
+    std::string get_subsys_type() const;
 
 private:
     std::string _subsys_type;
@@ -30,7 +30,7 @@ private:
 class cgroup_subsystem {
 public:
     cgroup_subsystem();
-    cgroup_subsystem(std::string subsys_type);
+    explicit cgroup_subsystem(std::string subsys_type);
     ~cgroup_subsystem();
 
     void set(std::string subsys_type);

@@ -13,7 +13,7 @@ namespace io {
 
 class list_file_reader {
 public:
-    list_file_reader(std::string filename);
+    explicit list_file_reader(const std::string& filename);
     ~list_file_reader();
 
     std::vector<std::string> read();

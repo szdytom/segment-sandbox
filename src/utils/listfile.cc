@@ -4,7 +4,7 @@
 #include <fmt/core.h>
 #include "ssandbox/utils/exceptions.h"
 
-ssandbox::io::list_file_reader::list_file_reader(std::string filename) {
+ssandbox::io::list_file_reader::list_file_reader(const std::string& filename) {
     this->filename = filename;
 }
 
@@ -15,10 +15,11 @@ std::vector<std::string> ssandbox::io::list_file_reader::read() {
 
     std::FILE* file = std::fopen(this->filename.c_str(), "r");
     if (file == nullptr)
-        throw ssandbox::exceptions::syscall_error(errno, fmt::format("Cannot open list file: '{}'", this->filename), __FUNCTION__);
+        throw ssandbox::exceptions::syscall_error(errno, fmt::format("Cannot open list file: '{}'", this->filename),
+                                                  __FUNCTION__);
 
     char* line = new char[4096];
-    while (~std::fscanf(file, " %[^\n\r]", line)) {
+    while (~std::fscanf(file, " %4095[^\n\r]", line)) {
         char* line_begin = line;
         while (*line_begin != '\0' && (*line_begin == ' ' || *line_begin == '\t'))
             line_begin += 1;

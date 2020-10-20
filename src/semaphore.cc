@@ -7,6 +7,7 @@ const unsigned int ssandbox::semaphore::_time = 50U;
 
 ssandbox::semaphore::semaphore() {
     this->_mark = false;
+    this->_value = -1;
 }
 
 ssandbox::semaphore::~semaphore() {}

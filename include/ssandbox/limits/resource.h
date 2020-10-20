@@ -7,6 +7,7 @@
 #include <future>
 #include <string>
 #include <vector>
+#include <memory>
 #include "ssandbox/cgroup.h"
 
 namespace ssandbox {
@@ -22,7 +23,7 @@ public:
     void release();
     void task(pid_t pid);
     void wait();
-    void set_uid(std::string uid);
+    void set_uid(const std::string& uid);
 
     limits_manager();
     ~limits_manager();
@@ -45,7 +46,7 @@ public:
     limit_info_t();
     ~limit_info_t();
 
-    void set_up(std::string uid, ssandbox::limits_manager* mgr);
+    void set_up(const std::string& uid, std::shared_ptr<limits_manager> mgr);
     void apply(pid_t container_pid);
     void wait();
 
@@ -58,7 +59,7 @@ private:
     void _not_applied_required(std::string function_name);
 
     std::string _uid;
-    limits_manager* _limiter;
+    std::shared_ptr<limits_manager> _limiter;
 
     unsigned int _cpu;
     unsigned int _time;
