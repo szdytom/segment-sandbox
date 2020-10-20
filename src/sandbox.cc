@@ -115,9 +115,6 @@ void ssandbox::container::stop() {
 void ssandbox::container::_clear() {
     this->cfg->limit_config.wait();
 
-    /* clear mounted fs */
-    this->cfg->fs->umount_all();
-
     /* free memory inside unique_ptr */
     this->_container_stack.reset(nullptr);
 }

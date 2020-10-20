@@ -37,7 +37,6 @@ SET(SRC_LIST
     ${PROJECT_SOURCE_DIR}/src/container-fs/abstruct/tmpfs.cc
     ${PROJECT_SOURCE_DIR}/src/container-fs/overlayfs/mainfs.cc
     ${PROJECT_SOURCE_DIR}/src/container-fs/readonlyfs/mount.cc
-    ${PROJECT_SOURCE_DIR}/src/container-fs/readonlyfs/umount.cc
 )
 
 SET(HEADER_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/include/ssandbox)

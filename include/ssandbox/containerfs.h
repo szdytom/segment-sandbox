@@ -12,7 +12,6 @@ namespace ssandbox {
 class abstruct_container_fs {
 public:
     void mount_all();
-    void umount_all();
 
     void enable_tmp(bool enable = true);
     void enable_proc(bool enable = true);
@@ -24,10 +23,7 @@ protected:
     std::filesystem::path get_fs_path(const std::filesystem::path& name) const;
 
     virtual void mount_main(){};
-    virtual void umount_main(){};
-
     virtual void mount_extra(){};
-    virtual void umount_extra(){};
 
     std::string uid;
     std::filesystem::path workspace;
@@ -41,9 +37,6 @@ private:
     void _mount_tmp();
     void _mount_proc();
 
-    void _umount_tmp();
-    void _umount_proc();
-
     void _change_root();
 
     bool _mount_tmp_flag;
@@ -53,13 +46,11 @@ private:
 class OverlayContainerFS : public abstruct_container_fs {
 protected:
     void mount_main() override;
-    void umount_main() override;
 };
 
 class readonly_container_fs : public abstruct_container_fs {
 protected:
     void mount_main() override;
-    void umount_main() override;
 };
 
 } /* namespace ssandbox */

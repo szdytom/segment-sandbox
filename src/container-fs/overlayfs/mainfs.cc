@@ -10,8 +10,3 @@ void ssandbox::OverlayContainerFS::mount_main() {
     if (mount("overlay", this->get_fs_path("target").c_str(), "overlay", 0, options.c_str()))
         throw ssandbox::exceptions::syscall_error(errno, "Cannot mount overlayfs", __FUNCTION__);
 }
-
-void ssandbox::OverlayContainerFS::umount_main() {
-    if (umount2(this->get_fs_path("target").c_str(), MNT_FORCE))
-        throw ssandbox::exceptions::syscall_error(errno, "Cannot umount fs of overlayfs", __FUNCTION__);
-}
