@@ -4,7 +4,7 @@
 #include "ssandbox/containerfs.h"
 #include "ssandbox/utils/exceptions.h"
 
-void ssandbox::AbstructContainerFS::mount_all() {
+void ssandbox::abstruct_container_fs::mount_all() {
     if (mount("none", "/", nullptr, MS_REC | MS_PRIVATE, nullptr))
         throw ssandbox::exceptions::syscall_error(errno, "Cannot make mount namespace private", __FUNCTION__);
 
@@ -20,7 +20,7 @@ void ssandbox::AbstructContainerFS::mount_all() {
     this->mount_extra();
 }
 
-void ssandbox::AbstructContainerFS::umount_all() {
+void ssandbox::abstruct_container_fs::umount_all() {
     // if (this->_mount_tmp_flag)
     //     this->_umount_tmp();
 
@@ -31,7 +31,7 @@ void ssandbox::AbstructContainerFS::umount_all() {
     // this->umount_extra();
 }
 
-void ssandbox::AbstructContainerFS::_change_root() {
+void ssandbox::abstruct_container_fs::_change_root() {
     if (chdir(this->get_fs_path("target").c_str()))
         throw ssandbox::exceptions::syscall_error(errno, "Cannot change working point", __FUNCTION__);
 

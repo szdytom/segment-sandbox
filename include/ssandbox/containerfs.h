@@ -9,7 +9,7 @@
 
 namespace ssandbox {
 
-class AbstructContainerFS {
+class abstruct_container_fs {
 public:
     void mount_all();
     void umount_all();
@@ -33,9 +33,9 @@ protected:
     std::filesystem::path workspace;
     std::filesystem::path image_path;
 
-    AbstructContainerFS();
-    ~AbstructContainerFS();
-    
+    abstruct_container_fs();
+    ~abstruct_container_fs();
+
 private:
 
     void _mount_tmp();
@@ -50,13 +50,13 @@ private:
     bool _mount_proc_flag;
 };
 
-class OverlayContainerFS : public AbstructContainerFS {
+class OverlayContainerFS : public abstruct_container_fs {
 protected:
     void mount_main() override;
     void umount_main() override;
 };
 
-class readonly_container_fs : public AbstructContainerFS {
+class readonly_container_fs : public abstruct_container_fs {
 protected:
     void mount_main() override;
     void umount_main() override;

@@ -1,8 +1,8 @@
 #include "ssandbox/containerfs.h"
 
-ssandbox::AbstructContainerFS::AbstructContainerFS() {
+ssandbox::abstruct_container_fs::abstruct_container_fs() {
     this->_mount_proc_flag = true;
     this->_mount_tmp_flag = true;
 }
 
-ssandbox::AbstructContainerFS::~AbstructContainerFS() {}
+ssandbox::abstruct_container_fs::~abstruct_container_fs() {}

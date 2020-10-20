@@ -5,12 +5,12 @@
 #include "ssandbox/containerfs.h"
 #include "ssandbox/utils/exceptions.h"
 
-void ssandbox::AbstructContainerFS::_mount_tmp() {
+void ssandbox::abstruct_container_fs::_mount_tmp() {
     if (mount("tmpfs", "/tmp", "tmpfs", 0, nullptr))
         throw ssandbox::exceptions::syscall_error(errno, "Cannot mount fs of tmpfs", __FUNCTION__);
 }
 
-void ssandbox::AbstructContainerFS::_umount_tmp() {
+void ssandbox::abstruct_container_fs::_umount_tmp() {
     std::string tmppath((this->get_fs_path("target") / "tmp").string());
     if (umount2(tmppath.c_str(), MNT_FORCE))
         throw ssandbox::exceptions::syscall_error(errno, fmt::format("Cannot umount fs of tmpfs at '{}'", tmppath),

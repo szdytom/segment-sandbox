@@ -21,7 +21,7 @@ struct sandbox_t {
     int stack_size;                          /* stack size of new program, in bytes */
     std::function<int(void)> func;           /* function to run inside sandbox */
     std::string hostname;                    /* hostname inside container */
-    std::shared_ptr<AbstructContainerFS> fs; /* handler filesystem in container */
+    std::shared_ptr<abstruct_container_fs> fs; /* handler filesystem in container */
     limit_info_t limit_config;               /* Resource Limit Config */
     bool enable_network;                     /* Clone new network namespace or not */
 };
