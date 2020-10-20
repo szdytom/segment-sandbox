@@ -5,13 +5,15 @@
 
 The sandbox for segment-judger using linux namespace, cgroup and seccomp
 
-基于Linux namespace, rlimit 和 seccomp 的沙箱系统，segment-judger将使用它。
+基于Linux namespace, cgroup 和 seccomp 的沙箱系统，segment-judger将使用它。
 
 查看wiki获得更多信息。
 
 # Install Requirements
-You need g++-9 or later (clang++10.0 or later), witch has full C++17 support (Ubuntu 20.04 LTS is a good choice).
+You need g++-9 or later (clang++10.0 or later), witch has full C++17 support (Ubuntu 20.04 LTS or Alpine Linux is a good choice).
 
 C++ lib **{fmt}** is required.
+
+Also, `libseccomp` required. 
 
 You need `make` and `cmake` to compile.
