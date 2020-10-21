@@ -1,5 +1,6 @@
 #include <cerrno>
 #include <cstring>
+#include <memory>
 #include <ssandbox/ssandbox.h>
 #include <sys/wait.h>
 #include <unistd.h>
@@ -30,7 +31,7 @@ int main() {
     cfg->func = func;
     cfg->stack_size = 5 * 1024 * 1024; // 5MB
     cfg->hostname = "container";
-    cfg->uid = "runbash";
+    cfg->uid = "runshell";
     cfg->enable_network = false;
 
     auto container_fs = make_shared<readonly_container_fs>();
@@ -40,10 +41,10 @@ int main() {
     container_fs->set_workspace("/mnt/sandboxes/workspace");
     cfg->fs = container_fs;
 
-    cfg->limit_config.set_cpu_limit(30);   // 30% on one core
-    cfg->limit_config.set_time_limit(0);   // unlimited
-    cfg->limit_config.set_memory_limit(0); // unlimited
-    cfg->limit_config.set_fork_limit(10);  // at most fork 10 times (create 3 child process)
+    cfg->limit_config.set_cpu_limit(30);      // 30% on one core
+    cfg->limit_config.set_time_limit(100000); // 100s(1min40s)
+    cfg->limit_config.set_memory_limit(0);    // unlimited
+    cfg->limit_config.set_fork_limit(10);     // at most fork 10 times (create 10 child process)
 
     printf("Outside\n");
     container c;
