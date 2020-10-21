@@ -4,7 +4,7 @@
 #define SSANDBOX_USERNS_H
 
 #include <string>
-#include <unistd.h>
+#include <sched.h>
 
 namespace ssandbox {
 

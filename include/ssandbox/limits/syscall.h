@@ -4,7 +4,6 @@
 #include <string>
 #include <fmt/core.h>
 #include <seccomp.h>
-#include <unistd.h>
 
 #ifndef SSANDBOX_LIMITS_SYSCALL_H
 #define SSANDBOX_LIMITS_SYSCALL_H

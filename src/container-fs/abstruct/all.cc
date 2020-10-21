@@ -1,6 +1,7 @@
 #include <cerrno>
 #include <fmt/core.h>
-#include <unistd.h>
+#include <sys/unistd.h>
+#include <sys/mount.h>
 #include "ssandbox/containerfs.h"
 #include "ssandbox/utils/exceptions.h"
 

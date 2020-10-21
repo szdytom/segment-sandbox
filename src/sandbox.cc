@@ -10,8 +10,8 @@
 #include <sched.h>
 #include <signal.h>
 #include <sys/types.h>
+#include <sys/unistd.h>
 #include <sys/wait.h>
-#include <unistd.h>
 #include "ssandbox/limits/resource.h"
 #include "ssandbox/limits/syscall.h"
 #include "ssandbox/semaphore.h"
